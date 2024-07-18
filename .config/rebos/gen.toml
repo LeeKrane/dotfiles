@@ -1,0 +1,47 @@
+# --------------------- #
+#    Generation File    #
+# --------------------- #
+
+# Other generation files to import. (Example: intensive_apps -> ~/.config/rebos/imports/intensive_apps.toml)
+imports = [
+    # "intensive_apps",
+]
+
+# Packages to be installed via the native package manager.
+[managers.system]
+items = [
+	"git",
+	"alacritty",
+	"zsh",
+#	"code",
+#	"containerd",
+	"discord",
+#	"docker-ce",
+#	"docker-ce-cli",
+#	"docker-compose-plugin",
+	"flatpak",
+	"fzf",
+	"jetbrains-mono-fonts",
+#	"jetbrains-mono-nerd-fonts",
+	"kde-connect",
+	"ncdu",
+	"neovim",
+	"nextcloud-client",
+	"nodejs",
+	"obs-studio",
+	"snapper",
+	"stow",
+	"texlive-scheme-full",
+]
+
+# Packages to be installed via Flatpak.
+[managers.flatpak]
+items = [
+	"com.spotify.Client",
+]
+
+# Packages to be installed via Cargo.
+[managers.cargo]
+items = [
+    # "bacon",
+]
