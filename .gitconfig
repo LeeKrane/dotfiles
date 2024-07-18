@@ -1,0 +1,16 @@
+[core]
+	editor = vim
+	autocrlf = input
+[user]
+	name = krane
+	email = christian.kranabetter@protonmail.com
+[init]
+	defaultBranch = main
+[fetch]
+	prune = true
+[alias]
+	st = status -sb
+	co = checkout
+	cm = commit -m
+	ll = log --oneline
+	pr = pull --rebase
