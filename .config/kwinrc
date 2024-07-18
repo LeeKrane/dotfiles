@@ -1,0 +1,16 @@
+[Desktops]
+Id_1=38901187-9026-49ee-979d-a555d521cc9d
+Number=1
+Rows=1
+
+[Effect-overview]
+BorderActivate=9
+
+[Tiling]
+padding=4
+
+[Tiling][c8a4a66d-bbca-5e7f-8a37-ce3b4a705568]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Xwayland]
+Scale=1.5
