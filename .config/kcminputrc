@@ -1,0 +1,6 @@
+[Libinput][2362][8200][ASUP1205:00 093A:2008 Mouse]
+NaturalScroll=false
+
+[Libinput][2362][8200][ASUP1205:00 093A:2008 Touchpad]
+ClickMethod=1
+NaturalScroll=true
