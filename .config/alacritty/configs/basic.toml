@@ -1,0 +1,27 @@
+[window]
+title = "Terminal"
+dynamic_title = true
+dynamic_padding = true
+startup_mode = "Maximized"
+
+[window.padding]
+x = 0
+y = 0
+
+[shell]
+program = "/bin/bash"
+
+[env]
+LANG = "en_US.UTF-8"
+LC_CTYPE = "en_US.UTF-8"
+TERM = "alacritty"
+
+[mouse]
+hide_when_typing = true
+
+[font]
+size = 9.5
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
