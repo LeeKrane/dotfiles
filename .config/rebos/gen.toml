@@ -4,8 +4,11 @@
 
 # Other generation files to import. (Example: intensive_apps -> ~/.config/rebos/imports/intensive_apps.toml)
 imports = [
-    # "intensive_apps",
+	# "intensive_apps",
 ]
+
+[managers.system-repos]
+items = ["https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo"]
 
 # Packages to be installed via the native package manager.
 [managers.system]
@@ -13,16 +16,16 @@ items = [
 	"git",
 	"alacritty",
 	"zsh",
-#	"code",
-#	"containerd",
+	#	"code",
+	#	"containerd",
 	"discord",
-#	"docker-ce",
-#	"docker-ce-cli",
-#	"docker-compose-plugin",
+	#	"docker-ce",
+	#	"docker-ce-cli",
+	#	"docker-compose-plugin",
 	"flatpak",
 	"fzf",
 	"jetbrains-mono-fonts",
-#	"jetbrains-mono-nerd-fonts",
+	"jetbrainsmono-nerd-fonts",
 	"kde-connect",
 	"ncdu",
 	"neovim",
@@ -36,12 +39,10 @@ items = [
 
 # Packages to be installed via Flatpak.
 [managers.flatpak]
-items = [
-	"com.spotify.Client",
-]
+items = ["com.spotify.Client"]
 
 # Packages to be installed via Cargo.
 [managers.cargo]
 items = [
-    # "bacon",
+	# "bacon",
 ]
