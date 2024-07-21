@@ -1,0 +1,7 @@
+imports = []
+
+[managers.rpm-keys]
+items = ["https://packages.microsoft.com/keys/microsoft.asc"]
+
+[managers.system]
+items = ["code"]

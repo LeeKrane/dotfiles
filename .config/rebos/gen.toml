@@ -6,6 +6,7 @@
 imports = [
 	# "intensive_apps",
 	"docker",
+	"vscode",
 ]
 
 [managers.system-repos]
