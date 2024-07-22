@@ -33,6 +33,7 @@ items = [
 	"snapper",
 	"stow",
 	"texlive-scheme-full",
+	"piper",                    # for mouse hotkeys
 ]
 
 # Packages to be installed via Flatpak.
