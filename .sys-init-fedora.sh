@@ -16,6 +16,7 @@ echo "Linking your dotfiles via stow..."
 cd ~/.dotfiles
 stow --adopt .
 git reset --hard
+source ~/.bashrc
 cd
 echo
 echo
@@ -43,6 +44,8 @@ echo
 # rebos for remaining programs
 echo "Installing Rebos for the remaining system packages:"
 cargo install rebos
+echo "export \$PATH='/home/krane/.cargo/bin:\$PATH'" > .krane-rc/local-paths
+source ~/.bashrc
 echo
 echo "Installing the remaining system packages via Rebos:"
 rebos gen current build
