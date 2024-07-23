@@ -6,11 +6,7 @@
 imports = [
 	# "intensive_apps",
 	"docker",
-	"vscode",
 ]
-
-[managers.system-repos]
-items = ["https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo"]
 
 # Packages to be installed via the native package manager.
 [managers.system]
@@ -33,7 +29,7 @@ items = [
 	"snapper",
 	"stow",
 	"texlive-scheme-full",
-	"piper",                    # for mouse hotkeys
+	"code",
 ]
 
 # Packages to be installed via Flatpak.

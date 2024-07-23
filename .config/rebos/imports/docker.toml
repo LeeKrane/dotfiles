@@ -1,8 +1,5 @@
 imports = []
 
-[managers.system-repos]
-items = ["https://download.docker.com/linux/fedora/docker-ce.repo"]
-
 [managers.system]
 items = [
 	"docker-ce",

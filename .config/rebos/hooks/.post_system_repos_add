@@ -1,5 +1,0 @@
-#!/bin/bash
-
-sudo dnf --refresh upgrade
-sudo dnf install terra-release
-
