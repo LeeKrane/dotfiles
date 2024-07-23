@@ -24,14 +24,14 @@ echo
 # important repositories and keys for rebos
 echo "Adding needed dnf repositories and rpm keys:"
 # terra
-sudo dnf config-manager --add-repo https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
-sudo dnf --refresh upgrade
+sudo dnf -y config-manager --add-repo https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
+sudo dnf -y --refresh upgrade
 sudo dnf -y install terra-release
 
 # docker
-sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-sudo dnf --refresh upgrade
-sudo usermod -a -G docker krane
+sudo dnf -y config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf -y --refresh upgrade
+#sudo usermod -a -G docker krane
 
 # vs code
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -44,7 +44,7 @@ echo
 # rebos for remaining programs
 echo "Installing Rebos for the remaining system packages:"
 cargo install rebos
-echo "export \$PATH='/home/krane/.cargo/bin:\$PATH'" > .krane-rc/local-paths
+echo "export PATH='/home/$USER/.cargo/bin/:\$PATH'" > .krane-rc/local-paths
 source ~/.bashrc
 echo
 echo "Installing the remaining system packages via Rebos:"
