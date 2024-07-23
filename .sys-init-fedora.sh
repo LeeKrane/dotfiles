@@ -48,6 +48,7 @@ echo "export PATH='/home/$USER/.cargo/bin/:$PATH'" > .krane-rc/local-paths
 source ~/.bashrc
 echo
 echo "Installing the remaining system packages via Rebos:"
+rebos setup
 rebos gen current build
 echo
 echo "System initialization is complete! Please manually install the following programs:"
