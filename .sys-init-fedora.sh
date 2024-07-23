@@ -14,7 +14,8 @@ echo
 # dotfiles
 echo "Linking your dotfiles via stow..."
 cd ~/.dotfiles
-stow .
+stow --adopt .
+git reset --hard
 cd
 echo
 echo
