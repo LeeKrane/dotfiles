@@ -44,7 +44,7 @@ echo
 # rebos for remaining programs
 echo "Installing Rebos for the remaining system packages:"
 cargo install rebos
-echo "export PATH='/home/$USER/.cargo/bin/:\$PATH'" > .krane-rc/local-paths
+echo "export PATH='/home/$USER/.cargo/bin/:$PATH'" > .krane-rc/local-paths
 source ~/.bashrc
 echo
 echo "Installing the remaining system packages via Rebos:"
