@@ -10,7 +10,7 @@ echo
 
 # initial programs
 echo -e "${BLUE}Installing initial programs needed for system setup:${NC}"
-sudo dnf -y install stow cargo
+sudo dnf -y install stow cargo plymouth-plugin-script
 echo
 echo
 
@@ -45,11 +45,18 @@ echo
 echo
 
 # grub 2 theme
-echo -e "${BLUE}Generating custom grub2 theme:${NC}"
+echo -e "${BLUE}Generating custom grub2 theme...${NC}"
 sudo mkdir /boot/grub2/themes
 sudo cp -r ~/.dotfiles/.grub-themes/CyberEXS/ /boot/grub2/themes/
-sudo cp ~/.dotfiles/grub /etc/default/grub
+sudo cp ~/.dotfiles/.grub /etc/default/grub
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+echo
+echo
+
+# plymouth theme
+echo -e "${BLUE}Generating custom plymouth boot screen theme...${NC}"
+sudo cp -r ~/.dotfiles/.plymouth-themes/lone /usr/share/plymouth/themes/
+sudo plymouth-set-default-theme lone
 echo
 echo
 

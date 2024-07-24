@@ -30,6 +30,8 @@ items = [
 	"stow",
 	"texlive-scheme-full",
 	"code",
+	"cargo",
+	"plymouth-plugin-script",
 ]
 
 # Packages to be installed via Flatpak.
