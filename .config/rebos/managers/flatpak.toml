@@ -1,6 +1,6 @@
 # Flatpak
 
-add = "flatpak install #:?"
+add = "flatpak install -y --system #:?"
 remove = "flatpak uninstall #:?"
 upgrade = "flatpak upgrade"
 
