@@ -49,6 +49,7 @@ source ~/.bashrc
 echo
 echo "Installing the remaining system packages via Rebos:"
 rebos setup
+rebos gen commit "[sys-init] automatic initial base system configuration"
 rebos gen current build
 echo
 echo "System initialization is complete! Please manually install the following programs:"
