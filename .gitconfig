@@ -15,3 +15,6 @@
 	ca = commit --amend
 	ll = log --oneline
 	pr = pull --rebase
+	aa = add all
+	dc = diff --cached
+
