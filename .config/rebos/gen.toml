@@ -33,6 +33,7 @@ items = [
 	"cargo",
 	"plymouth-plugin-script",
 	"exa",
+	"bat",
 ]
 
 # Packages to be installed via Flatpak.
