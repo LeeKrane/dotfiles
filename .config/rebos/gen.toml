@@ -36,6 +36,7 @@ items = [
 	"bat",
 	"ripgrep",
 	"zoxide",
+	"mc",
 ]
 
 # Packages to be installed via Flatpak.
