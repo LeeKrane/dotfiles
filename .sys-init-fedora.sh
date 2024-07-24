@@ -44,6 +44,15 @@ dnf -y check-update
 echo
 echo
 
+# grub 2 theme
+echo -e "${BLUE}Generating custom grub2 theme:${NC}"
+sudo mkdir /boot/grub2/themes
+sudo cp -r ~/.dotfiles/.grub-themes/CyberEXS/ /boot/grub2/themes/
+sudo cp ~/.dotfiles/grub /etc/default/grub
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+echo
+echo
+
 # rebos for remaining programs
 echo -e "${BLUE}Installing Rebos for the remaining system packages:${NC}"
 cargo install rebos
