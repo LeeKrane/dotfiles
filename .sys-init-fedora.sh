@@ -47,7 +47,7 @@ echo
 # rebos for remaining programs
 echo -e "${BLUE}Installing Rebos for the remaining system packages:${NC}"
 cargo install rebos
-echo "export PATH='/home/$USER/.cargo/bin/:$PATH'" > .krane-rc/local-paths
+echo "export PATH='/home/$USER/.cargo/bin/:$PATH'" >.krane-rc/local-paths
 source ~/.bashrc
 echo
 echo -e "${BLUE}Installing the remaining system packages via Rebos:${NC}"
@@ -61,5 +61,5 @@ echo
 echo " - JetBrains IntelliJ"
 echo " - JetBrains WebStorm"
 echo
-echo "(If using Nobara, remember to only update via the 'Update System' program provided by Glorious Egroll)"
+echo "(If using Nobara, remember to only update via the 'Update System' program provided by Glorious Eggroll)"
 echo -e "Exiting...${NC}"
