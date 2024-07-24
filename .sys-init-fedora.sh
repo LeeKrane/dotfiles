@@ -1,18 +1,21 @@
 #!/bin/bash
 
-echo "Always clone the dotfiles repository as ~/.dotfiles"
-echo "Run this script without sudo. Rebos won't work if this script is run as sudo."
+NC="\033[0m"
+BLUE="\033[1;34m"
+
+echo "${BLUE}Always clone the dotfiles repository as ~/.dotfiles"
+echo "Run this script without sudo. Rebos won't work if this script is run as sudo.${NC}"
 echo
 echo
 
 # initial programs
-echo "Installing initial programs needed for system setup:"
+echo "${BLUE}Installing initial programs needed for system setup:${NC}"
 sudo dnf -y install stow cargo
 echo
 echo
 
 # dotfiles
-echo "Linking your dotfiles via stow..."
+echo "${BLUE}Linking your dotfiles via stow...${NC}"
 cd ~/.dotfiles
 stow --adopt .
 git reset --hard
@@ -22,7 +25,7 @@ echo
 echo
 
 # important repositories and keys for rebos
-echo "Adding needed dnf repositories and rpm keys:"
+echo "${BLUE}Adding needed dnf repositories and rpm keys:${NC}"
 # terra
 sudo dnf -y config-manager --add-repo https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
 sudo dnf -y --refresh upgrade
@@ -42,20 +45,20 @@ echo
 echo
 
 # rebos for remaining programs
-echo "Installing Rebos for the remaining system packages:"
+echo "${BLUE}Installing Rebos for the remaining system packages:${NC}"
 cargo install rebos
 echo "export PATH='/home/$USER/.cargo/bin/:$PATH'" > .krane-rc/local-paths
 source ~/.bashrc
 echo
-echo "Installing the remaining system packages via Rebos:"
+echo "${BLUE}Installing the remaining system packages via Rebos:${NC}"
 rebos setup
 rebos gen commit "[sys-init] automatic initial base system configuration"
 rebos gen current build
 echo
-echo "System initialization is complete! Please manually install the following programs:"
+echo "${BLUE}System initialization is complete! Please manually install the following programs:"
 echo
 echo " - JetBrains IntelliJ"
 echo " - JetBrains WebStorm"
 echo
 echo "(If using Nobara, remember to only update via the 'Update System' program provided by Glorious Egroll)"
-echo "Exiting..."
+echo "Exiting...${NC}"
