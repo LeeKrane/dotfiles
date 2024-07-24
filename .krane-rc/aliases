@@ -6,4 +6,6 @@ alias lla='exa -lAh'
 alias tree='exa --tree'
 alias nv='nvim'
 alias cat='bat'
+alias cd='z'
+alias zz='z -'
 
