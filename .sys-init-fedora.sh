@@ -52,6 +52,7 @@ source ~/.bashrc
 echo
 echo -e "${BLUE}Installing the remaining system packages via Rebos:${NC}"
 rebos setup
+rebos config init
 rebos gen commit "[sys-init] automatic initial base system configuration"
 rebos gen current build
 echo
