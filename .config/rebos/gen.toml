@@ -34,7 +34,7 @@ items = [
 	"plymouth-plugin-script",
 	"exa",
 	"bat",
-	"",
+	"ripgrep",
 ]
 
 # Packages to be installed via Flatpak.
