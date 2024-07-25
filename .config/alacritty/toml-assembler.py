@@ -20,7 +20,7 @@ out_path = "./alacritty.toml"
 paths = [
     "./configs/basic.toml",
     "./configs/keybindings.toml",
-    "./themes/catppuccin-mocha.toml",
+    "./themes/catppuccin-macchiato.toml",
 ]
 
 save(merge(paths), out_path)
