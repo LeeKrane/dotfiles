@@ -30,4 +30,4 @@ PS1="\u@\h:\w\$ "
 source ~/.krane-rc/aliases
 source ~/.krane-rc/paths
 source ~/.krane-rc/local-paths
-
+source ~/.krane-rc/krane-rc
