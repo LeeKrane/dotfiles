@@ -37,6 +37,7 @@ items = [
 	"ripgrep",
 	"zoxide",
 	"mc",
+	"flameshot",                # screenshot tool
 ]
 
 # Packages to be installed via Flatpak.
