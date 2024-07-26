@@ -2,6 +2,7 @@
 
 NC="\033[0m"
 BLUE="\033[1;34m"
+GREEN="\033[1;32m"
 
 echo -e "${BLUE}Always clone the dotfiles repository as ~/.dotfiles"
 echo -e "Run this script without sudo. Rebos won't work if this script is run as sudo.${NC}"
@@ -72,18 +73,18 @@ rebos config init
 rebos gen commit "[sys-init] automatic initial base system configuration"
 rebos gen current build
 echo
-echo -e "${BLUE}System initialization is complete! Please install the following programs manually:"
+echo -e "${BLUE}System initialization is complete! Please install the following programs manually:${GREEN}"
 echo
 echo " - JetBrains IntelliJ			(https://www.jetbrains.com/idea/download/?section=linux)"
 echo " - JetBrains WebStorm			(https://www.jetbrains.com/webstorm/download/#section=linux)"
 echo " - VIA keyboard software		(https://github.com/the-via/releases/releases)"
 echo " - Heroic game launcher		(https://www.youtube.com/watch?v=2me-Q5Zsk_s)"
 echo
-echo -e "${BLUE}Also configure the following (or install if not using Nobara):"
+echo -e "${BLUE}Also configure the following (or install if not using Nobara):${GREEN}"
 echo
 echo " - Proton GE"
 echo " - Lutris game launcher (for EA, Ubisoft, Battle.net)"
 echo " - Heroic game launcher (for Epic Games, GOG, Prime Gaming)"
 echo
-echo "(If using Nobara, remember to only update via the 'Update System' program provided by Glorious Eggroll)"
+echo -e "${BLUE}(If using Nobara, remember to only update via the 'Update System' program provided by Glorious Eggroll)"
 echo -e "Exiting...${NC}"
