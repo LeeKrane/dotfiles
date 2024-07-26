@@ -106,6 +106,8 @@ ForegroundVisited=173,101,175
 
 [General]
 ColorSchemeHash=7715fd9c409e8efa0516fd38da43c1c19bb12d96
+TerminalApplication=alacritty
+TerminalService=Alacritty.desktop
 
 [KFileDialog Settings]
 Allow Expansion=false
