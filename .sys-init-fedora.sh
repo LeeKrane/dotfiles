@@ -74,8 +74,9 @@ rebos gen current build
 echo
 echo -e "${BLUE}System initialization is complete! Please manually install the following programs:"
 echo
-echo " - JetBrains IntelliJ"
-echo " - JetBrains WebStorm"
+echo " - JetBrains IntelliJ			(https://www.jetbrains.com/idea/download/?section=linux)"
+echo " - JetBrains WebStorm			(https://www.jetbrains.com/webstorm/download/#section=linux)"
+echo " - VIA keyboard software		(https://github.com/the-via/releases/releases)"
 echo
 echo "(If using Nobara, remember to only update via the 'Update System' program provided by Glorious Eggroll)"
 echo -e "Exiting...${NC}"
