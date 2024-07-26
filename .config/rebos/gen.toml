@@ -37,6 +37,7 @@ items = [
 	"zoxide",                   # better cd
 	"mc",                       # cli file manager
 	"flameshot",                # screenshot tool
+	"htop",                     # cli system process monitor
 ]
 
 # Packages to be installed via Flatpak.
