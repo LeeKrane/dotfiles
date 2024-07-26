@@ -38,6 +38,7 @@ items = [
 	"mc",                       # cli file manager
 	"flameshot",                # screenshot tool
 	"htop",                     # cli system process monitor
+	"vlc",                      # media player
 ]
 
 # Packages to be installed via Flatpak.
