@@ -82,8 +82,8 @@ echo
 echo -e "${BLUE}Also configure the following (or install if not using Nobara):"
 echo
 echo " - Proton GE"
-echo " - Lutris game launcher"
-echo " - Heroic game launcher"
+echo " - Lutris game launcher (for EA, Ubisoft, Battle.net)"
+echo " - Heroic game launcher (for Epic Games, GOG, Prime Gaming)"
 echo
 echo "(If using Nobara, remember to only update via the 'Update System' program provided by Glorious Eggroll)"
 echo -e "Exiting...${NC}"
