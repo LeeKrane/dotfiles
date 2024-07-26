@@ -26,7 +26,7 @@ echo
 echo
 
 # important repositories and keys for rebos
-echo -e "${BLUE}Adding needed dnf repositories and rpm keys:${NC}"
+echo -e "${BLUE}Adding needed dnf repositories, copr repositories and rpm keys:${NC}"
 # terra
 sudo dnf -y config-manager --add-repo https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
 sudo dnf -y --refresh upgrade
@@ -36,6 +36,9 @@ sudo dnf -y install terra-release
 sudo dnf -y config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 sudo dnf -y --refresh upgrade
 #sudo usermod -a -G docker krane
+
+# heroic game launcher
+sudo dnf -y copr enable atim/heroic-games-launcher
 
 # vs code
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -78,7 +81,6 @@ echo
 echo " - JetBrains IntelliJ			(https://www.jetbrains.com/idea/download/?section=linux)"
 echo " - JetBrains WebStorm			(https://www.jetbrains.com/webstorm/download/#section=linux)"
 echo " - VIA keyboard software		(https://github.com/the-via/releases/releases)"
-echo " - Heroic game launcher		(https://www.youtube.com/watch?v=2me-Q5Zsk_s)"
 echo
 echo -e "${BLUE}Also configure the following (or install if not using Nobara):${GREEN}"
 echo
