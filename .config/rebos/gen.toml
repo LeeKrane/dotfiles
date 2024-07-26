@@ -39,6 +39,7 @@ items = [
 	"flameshot",                # screenshot tool
 	"htop",                     # cli system process monitor
 	"vlc",                      # media player
+	"zed",                      # better vs code (probably), built on rust, less extensions (obviously)
 ]
 
 # Packages to be installed via Flatpak.
