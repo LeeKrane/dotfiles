@@ -5,43 +5,43 @@
 # Other generation files to import. (Example: intensive_apps -> ~/.config/rebos/imports/intensive_apps.toml)
 imports = [
 	# "intensive_apps",
-	"docker",
+	"docker", # containers :D
 ]
 
 # Packages to be installed via the native package manager.
 [managers.system]
 items = [
-	"git",
-	"alacritty",
-	"zsh",
-	"discord",
-	"flatpak",
-	"fzf",
-	"jetbrains-mono-fonts",
-	"jetbrainsmono-nerd-fonts",
-	"kde-connect",
-	"ncdu",
-	"neovim",
-	"nextcloud-client",
-	"nodejs",
-	"obs-studio",
-	"snapper",
-	"stow",
-	"texlive-scheme-full",
-	"code",
-	"cargo",
-	"plymouth-plugin-script",
-	"exa",
-	"bat",
-	"ripgrep",
-	"zoxide",
-	"mc",
+	"git",                      # version control
+	"alacritty",                # best terminal emulator
+	"zsh",                      # z shell
+	"discord",                  # discord communication app
+	"flatpak",                  # flatpak package manager
+	"fzf",                      # fuzzy finder
+	"jetbrains-mono-fonts",     # main mono font
+	"jetbrainsmono-nerd-fonts", # nerd font ;)
+	"kde-connect",              # mobile connection
+	"ncdu",                     # file size inspector (like TreeSize)
+	"neovim",                   # editor
+	"nextcloud-client",         # cloud client
+	"nodejs",                   # js runtime
+	"obs-studio",               # screen recording tool
+	"snapper",                  # btrfs snapshot tool
+	"stow",                     # parent directory linker (for dotfiles)
+	"texlive-scheme-full",      # latex packages
+	"code",                     # vs code
+	"cargo",                    # rust cargo package manager
+	"plymouth-plugin-script",   # plymouth boot screen theme loader script
+	"exa",                      # better ls
+	"bat",                      # better cat
+	"ripgrep",                  # cli file content seaercher
+	"zoxide",                   # better cd
+	"mc",                       # cli file manager
 	"flameshot",                # screenshot tool
 ]
 
 # Packages to be installed via Flatpak.
 [managers.flatpak]
-items = ["com.spotify.Client"]
+items = ["com.spotify.Client"] # music B)
 
 # Packages to be installed via Cargo.
 [managers.cargo]
