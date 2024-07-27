@@ -28,6 +28,6 @@ unset rc
 PS1="\u@\h:\w\$ "
 
 source ~/.krane-rc/aliases
-source ~/.krane-rc/paths
-source ~/.krane-rc/local-paths
-source ~/.krane-rc/krane-rc
+source ~/.krane-rc/bash/paths
+source ~/.krane-rc/bash/local-paths
+source ~/.krane-rc/bash/krane-rc
