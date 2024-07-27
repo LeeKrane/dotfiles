@@ -91,8 +91,11 @@ echo " - Lutris game launcher (for EA, Ubisoft, Battle.net)"
 echo " - Heroic game launcher (for Epic Games, GOG, Prime Gaming)"
 echo
 echo
-echo -e "${BLUE}Finally, changing default shell to ZSH...${NC}"
-chsh -s $(which zsh)
+echo -e "${BLUE}Finally, changing default shell to zsh and installing oh-my-zsh...${NC}"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+rm $HOME/.zshrc
+cd $HOME/.dotfiles/
+stow .
 echo
 echo
 echo -e "${BLUE}(If using Nobara, remember to only update via the 'Update System' program provided by Glorious Eggroll)"
