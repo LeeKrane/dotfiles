@@ -90,6 +90,7 @@ echo -e "${BLUE}Installing oh-my-zsh plugins...${NC}"
 cd
 git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 echo
 echo
 echo -e "${BLUE}System initialization is complete! Please install the following programs manually:${GREEN}"
