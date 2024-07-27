@@ -5,7 +5,7 @@ dynamic_padding = true
 startup_mode = "Maximized"
 
 [shell]
-program = "/bin/bash"
+program = "/usr/bin/zsh"
 
 [env]
 LANG = "en_US.UTF-8"
