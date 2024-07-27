@@ -12,3 +12,10 @@ zstyle :compinstall filename '/home/krane/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+
+# krane-rc sourcing
+source ~/.krane-rc/aliases
+source ~/.krane-rc/zsh/krane-rc
+source ~/.krane-rc/zsh/paths
+source ~/.krane-rc/zsh/local-paths
+
