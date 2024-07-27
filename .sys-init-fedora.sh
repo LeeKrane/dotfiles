@@ -78,24 +78,31 @@ rebos config init
 rebos gen commit "[sys-init] automatic initial base system configuration"
 rebos gen current build
 echo
+echo
+echo -e "${BLUE}Changing default shell to zsh and installing oh-my-zsh...${NC}"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+rm $HOME/.zshrc
+cd $HOME/.dotfiles/
+stow .
+echo
+echo
+echo -e "${BLUE}Installing oh-my-zsh plugins...${NC}"
+cd
+git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+echo
+echo
 echo -e "${BLUE}System initialization is complete! Please install the following programs manually:${GREEN}"
 echo
-echo " - JetBrains IntelliJ			(https://www.jetbrains.com/idea/download/?section=linux)"
-echo " - JetBrains WebStorm			(https://www.jetbrains.com/webstorm/download/#section=linux)"
-echo " - VIA keyboard software		(https://github.com/the-via/releases/releases)"
+echo " - JetBrains IntelliJ					(https://www.jetbrains.com/idea/download/?section=linux)"
+echo " - JetBrains WebStorm					(https://www.jetbrains.com/webstorm/download/#section=linux)"
+echo " - [optional due to web ui] VIA		(https://github.com/the-via/releases/releases)"
 echo
 echo -e "${BLUE}Also configure the following (or install if not using Nobara):${GREEN}"
 echo
 echo " - Proton GE"
 echo " - Lutris game launcher (for EA, Ubisoft, Battle.net)"
 echo " - Heroic game launcher (for Epic Games, GOG, Prime Gaming)"
-echo
-echo
-echo -e "${BLUE}Finally, changing default shell to zsh and installing oh-my-zsh...${NC}"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-rm $HOME/.zshrc
-cd $HOME/.dotfiles/
-stow .
 echo
 echo
 echo -e "${BLUE}(If using Nobara, remember to only update via the 'Update System' program provided by Glorious Eggroll)"
