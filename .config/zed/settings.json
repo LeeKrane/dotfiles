@@ -7,22 +7,23 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-    "base_keymap": "VSCode",
-    "ui_font_size": 16,
-    "buffer_font_size": 14,
-    "soft_wrap": "prefer_line",
-    "preferred_line_length": 80,
-    "tab_size": 4,
-    "hard_tabs": true,
-    "ui_font_family": "JetBrainsMono Nerd Font",
-    "buffer_font_family": "JetBrainsMono Nerd Font",
-    "theme": {
-        "mode": "system",
-        "light": "Catppuccin Frappé",
-        "dark": "Catppuccin Macchiato"
-    },
-    "terminal": {
-        "font_size": 14,
-        "font_family": "JetBrainsMono Nerd Font"
-    }
+	"base_keymap": "VSCode",
+	"ui_font_size": 16,
+	"buffer_font_size": 14,
+	"soft_wrap": "prefer_line",
+	"preferred_line_length": 80,
+	"tab_size": 4,
+	"hard_tabs": true,
+	"ui_font_family": "JetBrainsMono Nerd Font",
+	"buffer_font_family": "JetBrainsMono Nerd Font",
+	"theme": {
+		"mode": "system",
+		"light": "Catppuccin Frappé",
+		"dark": "Catppuccin Macchiato"
+	},
+	"terminal": {
+		"font_size": 14,
+		"font_family": "JetBrainsMono Nerd Font",
+		"line_height": "standard"
+	}
 }
