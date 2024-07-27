@@ -52,3 +52,6 @@ items = ["com.spotify.Client"] # music B)
 items = [
 	# "bacon",
 ]
+
+[managers.npm-global]
+items = ["bun", "yarn"]

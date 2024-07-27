@@ -1,0 +1,11 @@
+# NPM global
+
+add = "sudo npm install -g #:?"
+remove = "sudo npm uninstall -g #:?"
+
+plural_name = "npm global packages"
+
+hook_name = "npm_global_packages"
+
+[config]
+many_args = true
