@@ -1,0 +1,11 @@
+# Cargo
+
+add = "pip install #:?"
+remove = "pip uninstall #:?"
+
+plural_name = "pip packages"
+
+hook_name = "pip_packages"
+
+[config]
+many_args = true

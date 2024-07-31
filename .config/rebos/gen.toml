@@ -42,6 +42,7 @@ items = [
 	"zed",                       # better vs code (probably), built on rust, less extensions (obviously)
 	"heroic-games-launcher-bin", # heroic games launcher (depending on COPR repo)
 	"lazygit",                   # command line git ui
+	"gitleaks",                  # git protection tool to prevent secrets from being commited
 ]
 
 # Packages to be installed via Flatpak.
@@ -52,6 +53,12 @@ items = ["com.spotify.Client"] # music B)
 [managers.cargo]
 items = [
 	# "bacon",
+]
+
+[managers.pip]
+items = [
+	"toml",       # toml package for python (used for alacritty assembler script)
+	"pre-commit", # pre git commit executor (used for gitleaks)
 ]
 
 [managers.npm-global]
