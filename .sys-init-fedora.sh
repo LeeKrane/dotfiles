@@ -37,6 +37,9 @@ sudo dnf -y config-manager --add-repo https://download.docker.com/linux/fedora/d
 sudo dnf -y --refresh upgrade
 #sudo usermod -a -G docker krane
 
+# lazygit
+sudo dnf -y copr enable atim/lazygit
+
 # heroic game launcher
 sudo dnf -y copr enable atim/heroic-games-launcher
 

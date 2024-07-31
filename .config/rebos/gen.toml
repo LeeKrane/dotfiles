@@ -41,6 +41,7 @@ items = [
 	"vlc",                       # media player
 	"zed",                       # better vs code (probably), built on rust, less extensions (obviously)
 	"heroic-games-launcher-bin", # heroic games launcher (depending on COPR repo)
+	"lazygit",                   # command line git ui
 ]
 
 # Packages to be installed via Flatpak.
