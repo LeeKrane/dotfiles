@@ -44,6 +44,7 @@ items = [
 	"lazygit",                   # command line git ui
 	"gitleaks",                  # git protection tool to prevent secrets from being commited
 	"chromium",                  # chromium browser for usage with VIA
+	"piper",                     # GUI for mouse configuration
 ]
 
 # Packages to be installed via Flatpak.
