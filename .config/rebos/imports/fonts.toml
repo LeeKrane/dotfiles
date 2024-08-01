@@ -1,0 +1,5 @@
+[managers.system]
+items = [
+	"jetbrains-mono-fonts",     # main mono font
+	"jetbrainsmono-nerd-fonts", # nerd font ;)
+]

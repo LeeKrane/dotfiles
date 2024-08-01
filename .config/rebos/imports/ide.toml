@@ -1,0 +1,6 @@
+[managers.system]
+items = [
+	"neovim", # editor
+	"code",   # vs code
+	"zed",    # better vs code (probably), built on rust, less extensions (obviously)
+]

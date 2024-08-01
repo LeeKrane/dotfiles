@@ -1,0 +1,12 @@
+[managers.system]
+items = [
+	"git",       # version control
+	"lazygit",   # command line git ui
+	"gitleaks",  # git protection tool to prevent secrets from being commited
+	"git-delta", # better git diff
+]
+
+[managers.pip]
+items = [
+	"pre-commit", # pre git commit executor (used for gitleaks)
+]

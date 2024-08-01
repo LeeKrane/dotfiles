@@ -1,0 +1,16 @@
+[managers.system]
+items = [
+	"nodejs",              # javascript runtime
+	"texlive-scheme-full", # latex packages
+]
+
+[managers.pip]
+items = [
+	"toml", # toml package for python (used for alacritty assembler script)
+]
+
+[managers.npm-global]
+items = [
+	"bun",  # bun javascript package manager and runtime
+	"yarn", # yarn javascript package manager and runtime
+]

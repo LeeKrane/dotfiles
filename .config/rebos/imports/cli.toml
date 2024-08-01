@@ -1,0 +1,11 @@
+[managers.system]
+items = [
+	"fzf",     # fuzzy finder
+	"ncdu",    # file size inspector (like TreeSize)
+	"exa",     # better ls
+	"bat",     # better cat
+	"ripgrep", # cli file content seaercher
+	"zoxide",  # better cd
+	"mc",      # cli file manager
+	"htop",    # cli system process monitor
+]

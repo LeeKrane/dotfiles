@@ -1,0 +1,8 @@
+[managers.system]
+items = [
+	"alacritty", # best terminal emulator
+	"cargo",     # rust cargo package manager
+	"flatpak",   # flatpak package manager
+	"stow",      # parent directory linker (for dotfiles)
+	"zsh",       # z shell
+]

@@ -4,65 +4,25 @@
 
 # Other generation files to import. (Example: intensive_apps -> ~/.config/rebos/imports/intensive_apps.toml)
 imports = [
-	# "intensive_apps",
-	"docker", # containers :D
+	"apps",
+	"cli",
+	"configuration",
+	"dev",
+	"docker",
+	"essentials",
+	"fonts",
+	"git",
+	"ide",
 ]
 
 # Packages to be installed via the native package manager.
 [managers.system]
-items = [
-	"git",                       # version control
-	"alacritty",                 # best terminal emulator
-	"zsh",                       # z shell
-	"discord",                   # discord communication app
-	"flatpak",                   # flatpak package manager
-	"fzf",                       # fuzzy finder
-	"jetbrains-mono-fonts",      # main mono font
-	"jetbrainsmono-nerd-fonts",  # nerd font ;)
-	"kde-connect",               # mobile connection
-	"ncdu",                      # file size inspector (like TreeSize)
-	"neovim",                    # editor
-	"nextcloud-client",          # cloud client
-	"nodejs",                    # js runtime
-	"obs-studio",                # screen recording tool
-	"snapper",                   # btrfs snapshot tool
-	"stow",                      # parent directory linker (for dotfiles)
-	"texlive-scheme-full",       # latex packages
-	"code",                      # vs code
-	"cargo",                     # rust cargo package manager
-	"plymouth-plugin-script",    # plymouth boot screen theme loader script
-	"exa",                       # better ls
-	"bat",                       # better cat
-	"ripgrep",                   # cli file content seaercher
-	"zoxide",                    # better cd
-	"mc",                        # cli file manager
-	"flameshot",                 # screenshot tool
-	"htop",                      # cli system process monitor
-	"vlc",                       # media player
-	"zed",                       # better vs code (probably), built on rust, less extensions (obviously)
-	"heroic-games-launcher-bin", # heroic games launcher (depending on COPR repo)
-	"lazygit",                   # command line git ui
-	"gitleaks",                  # git protection tool to prevent secrets from being commited
-	"chromium",                  # chromium browser for usage with VIA
-	"piper",                     # GUI for mouse configuration
-	"git-delta",                 # better git diff
-]
+items = []
 
 # Packages to be installed via Flatpak.
 [managers.flatpak]
-items = ["com.spotify.Client"] # music B)
+items = []
 
 # Packages to be installed via Cargo.
 [managers.cargo]
-items = [
-	# "bacon",
-]
-
-[managers.pip]
-items = [
-	"toml",       # toml package for python (used for alacritty assembler script)
-	"pre-commit", # pre git commit executor (used for gitleaks)
-]
-
-[managers.npm-global]
-items = ["bun", "yarn"]
+items = []
