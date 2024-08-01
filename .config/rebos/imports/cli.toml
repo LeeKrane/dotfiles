@@ -11,3 +11,8 @@ items = [
 	"tldr",    # the shorter manpage
 	"thefuck", # command autocorrector (command: 'fuck')
 ]
+
+[managers.cargo]
+items = [
+	"du-dust", # another file size inspector
+]
