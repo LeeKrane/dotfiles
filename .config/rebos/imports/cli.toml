@@ -9,4 +9,5 @@ items = [
 	"mc",      # cli file manager
 	"btop",    # cli system process monitor
 	"tldr",    # the shorter manpage
+	"thefuck", # command autocorrector (command: 'fuck')
 ]
