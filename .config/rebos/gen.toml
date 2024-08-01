@@ -45,6 +45,7 @@ items = [
 	"gitleaks",                  # git protection tool to prevent secrets from being commited
 	"chromium",                  # chromium browser for usage with VIA
 	"piper",                     # GUI for mouse configuration
+	"git-delta",                 # better git diff
 ]
 
 # Packages to be installed via Flatpak.

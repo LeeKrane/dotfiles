@@ -1,6 +1,7 @@
 [core]
 	editor = nvim
 	autocrlf = input
+	pager = delta
 [user]
 	name = krane
 	email = christian.kranabetter@protonmail.com
@@ -19,4 +20,16 @@
 	pr = pull --rebase
 	aa = add all
 	dc = diff --cached
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+	colorMoved = default
 
