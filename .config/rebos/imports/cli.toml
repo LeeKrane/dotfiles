@@ -8,4 +8,5 @@ items = [
 	"zoxide",  # better cd
 	"mc",      # cli file manager
 	"btop",    # cli system process monitor
+	"tldr",    # the shorter manpage
 ]
