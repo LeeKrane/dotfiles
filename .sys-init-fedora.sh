@@ -16,6 +16,11 @@ echo
 echo
 
 # dotfiles
+echo -e "${BLUE}Creating folders for your dotfiles...${NC}"
+mkdir $HOME/.config/nvim
+mkdir $HOME/.local/share/nvim
+echo
+echo
 echo -e "${BLUE}Linking your dotfiles via stow...${NC}"
 cd ~/.dotfiles
 stow --adopt .
