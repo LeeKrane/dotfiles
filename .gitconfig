@@ -2,15 +2,20 @@
 	editor = nvim
 	autocrlf = input
 	pager = delta
+
 [user]
 	name = krane
 	email = christian.kranabetter@protonmail.com
+
 [init]
 	defaultBranch = main
+
 [fetch]
 	prune = true
+
 [pull]
 	rebase = true
+
 [alias]
 	st = status -sb
 	co = checkout
