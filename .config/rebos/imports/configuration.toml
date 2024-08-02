@@ -2,5 +2,4 @@
 items = [
 	"snapper",                # btrfs snapshot tool
 	"plymouth-plugin-script", # plymouth boot screen theme loader script
-	"piper",                  # GUI for mouse configuration
 ]
