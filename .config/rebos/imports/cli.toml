@@ -10,6 +10,7 @@ items = [
 	"btop",    # cli system process monitor
 	"tldr",    # the shorter manpage
 	"thefuck", # command autocorrector (command: 'fuck')
+	"fastfetch", # neofetch alternative
 ]
 
 [managers.cargo]
