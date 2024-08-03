@@ -77,7 +77,7 @@ echo -e "${BLUE}Installing Rebos for the remaining system packages:${NC}"
 cargo install rebos
 echo "export PATH='/home/$USER/.cargo/bin/:$PATH'" >.krane-rc/bash/local-paths
 echo "path=('/home/$USER/.cargo/bin/' $path)" >.krane-rc/zsh/local-paths
-echo "path=('/home/$USER/.local/bin/' $path)" >.krane-rc/zsh/local-paths
+echo "path=('/home/$USER/.local/bin/' $path)" >>.krane-rc/zsh/local-paths
 echo "export PATH" >.krane-rc/zsh/local-paths
 source ~/.bashrc
 echo
@@ -94,9 +94,9 @@ echo
 echo
 echo -e "${BLUE}Installing oh-my-zsh plugins...${NC}"
 cd
-git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
-git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+sudo git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+sudo git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 echo
 echo
 echo -e "${BLUE}Replacing automatically overwritten .zshrc file with that from dotfiles...${NC}"
