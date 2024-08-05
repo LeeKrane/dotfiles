@@ -11,6 +11,7 @@ items = [
 	"tldr",    # the shorter manpage
 	"thefuck", # command autocorrector (command: 'fuck')
 	"fastfetch", # neofetch alternative
+	"onedrive",  # onedrive client
 ]
 
 [managers.cargo]
