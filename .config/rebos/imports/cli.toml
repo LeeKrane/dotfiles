@@ -13,6 +13,7 @@ items = [
 	"fastfetch", # neofetch alternative
 	"onedrive",  # onedrive client
 	"jpegoptim", # jpeg img optimization tool
+	"optipng",   # png img optimization tool
 ]
 
 [managers.cargo]
