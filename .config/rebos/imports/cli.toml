@@ -11,10 +11,10 @@ items = [
 	"tldr",    # the shorter manpage
 	"thefuck", # command autocorrector (command: 'fuck')
 	"fastfetch", # neofetch alternative
-	"toipe",   # words per minute
 ]
 
 [managers.cargo]
 items = [
 	"du-dust", # another file size inspector
+	"toipe",   # words per minute
 ]
