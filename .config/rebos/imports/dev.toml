@@ -12,5 +12,6 @@ items = [
 [managers.npm-global]
 items = [
 	"bun",  # bun javascript package manager and runtime
-	"yarn", # yarn javascript package manager and runtime
+	"yarn", # yarn javascript package manager
+	"pnpm", # pnpm javascript package manager
 ]
