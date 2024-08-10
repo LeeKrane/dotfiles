@@ -11,5 +11,11 @@ alias zz='z -'
 alias lg='lazygit'
 alias htop='btop'
 alias top='btop'
-alias nvfzf='nvim $(fzf --preview="bat {}")'
+
+# fzf
+alias fzfp='fzf --preview="bat --color=always {}" --preview-window "~4,+{2}+4/3,<80(up)"'
+alias fnv='fzfp --bind "enter:become:nvim {1}"'
+
+alias rf='fzf --disabled --ansi --bind "start:reload:rg --hidden --no-ignore --column --color=always --smart-case {q}" --bind "change:reload:rg --hidden --no-ignore --column --color=always --smart-case {q}" --delimiter : --preview="bat --style=full --color=always --highlight-line {2} {1}" --preview-window "~4,+{2}+4/3,<80(up)" --query "$*"'
+alias rfnv='rf --bind "enter:become:nvim {1} +{2}"'
 
