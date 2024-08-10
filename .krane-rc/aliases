@@ -11,4 +11,5 @@ alias zz='z -'
 alias lg='lazygit'
 alias htop='btop'
 alias top='btop'
+alias nvfzf='nvim $(fzf --preview="bat {}")'
 
