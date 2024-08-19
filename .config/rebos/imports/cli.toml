@@ -14,6 +14,7 @@ items = [
 	"onedrive",  # onedrive client
 	"jpegoptim", # jpeg img optimization tool
 	"optipng",   # png img optimization tool
+	"wireguard-tools",	# wireguard duh
 ]
 
 [managers.cargo]
