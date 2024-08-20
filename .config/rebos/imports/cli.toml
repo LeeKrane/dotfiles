@@ -22,9 +22,3 @@ items = [
 	"du-dust", # another file size inspector
 	"toipe",   # words per minute
 ]
-
-[managers.pip]
-items = [
-	"backgroundremover"	# yes, exactly that
-]
-
