@@ -6,4 +6,5 @@ items = [
 	"cmake",
 	"libevdev-devel",
 	"libudev-devel",
+	"glib2-devel",
 ]
