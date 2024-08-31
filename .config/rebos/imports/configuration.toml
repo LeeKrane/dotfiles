@@ -7,4 +7,5 @@ items = [
 	"libevdev-devel",
 	"libudev-devel",
 	"glib2-devel",
+	"libconfig-devel",
 ]
