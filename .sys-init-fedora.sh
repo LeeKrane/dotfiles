@@ -117,7 +117,7 @@ echo -e "${BLUE}System initialization is complete! Please install the following 
 echo
 echo " - JetBrains IntelliJ					(https://www.jetbrains.com/idea/download/?section=linux)"
 echo " - JetBrains WebStorm					(https://www.jetbrains.com/webstorm/download/#section=linux)"
-echo " - [optional due to web ui] VIA		(https://github.com/the-via/releases/releases)"
+echo " - Super Productivity					(https://github.com/johannesjo/super-productivity/releases)
 echo
 echo -e "${BLUE}Also configure the following (or install if not using Nobara):${GREEN}"
 echo
