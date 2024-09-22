@@ -26,7 +26,6 @@ echo -e "${BLUE}Linking your dotfiles via stow...${NC}"
 cd ~/.dotfiles
 stow --adopt .
 git reset --hard
-source ~/.bashrc
 cd
 echo
 echo
@@ -45,9 +44,6 @@ sudo dnf -y --refresh upgrade
 
 # lazygit
 sudo dnf -y copr enable atim/lazygit
-
-# heroic game launcher
-sudo dnf -y copr enable atim/heroic-games-launcher
 
 # vs code
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
