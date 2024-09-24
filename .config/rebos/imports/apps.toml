@@ -7,7 +7,6 @@ items = [
 	"flameshot",                 # screenshot tool
 	#	"flameshot",                 # screenshot tool
 	"vlc",                       # media player
-	"heroic-games-launcher-bin", # heroic games launcher (depending on COPR repo)
 	"chromium",                  # chromium browser for usage with VIA
 	"virt-manager",				 # virtual machine manager
 ]
