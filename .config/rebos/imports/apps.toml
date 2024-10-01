@@ -12,4 +12,7 @@ items = [
 ]
 
 [managers.flatpak]
-items = ["com.spotify.Client"] # music B)
+items = [
+	"com.spotify.Client",
+	"signal",
+] # music B)
