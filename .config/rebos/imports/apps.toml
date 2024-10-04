@@ -14,5 +14,5 @@ items = [
 [managers.flatpak]
 items = [
 	"com.spotify.Client",
-	"signal",
+	"org.signal.Signal",
 ] # music B)
