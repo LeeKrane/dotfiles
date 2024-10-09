@@ -5,12 +5,12 @@
 # Other generation files to import. (Example: intensive_apps -> ~/.config/rebos/imports/intensive_apps.toml)
 imports = [
     # "intensive_apps",
-	"asusctl",	# possible brightness change fix
 ]
 
 # Packages to be installed via the native package manager.
 [managers.system]
 items = [
+	"asusctl",	# asus controls
     # "git",
 ]
 
