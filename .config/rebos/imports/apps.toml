@@ -13,7 +13,7 @@ items = [
 
 [managers.flatpak]
 items = [
-	"com.spotify.Client",
+	"com.spotify.Client", # music B)
 	"org.signal.Signal",
 	"dev.vencord.Vesktop",		# 3rd party discord client for wayland streaming
-] # music B)
+]
