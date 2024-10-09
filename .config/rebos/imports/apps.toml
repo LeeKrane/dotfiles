@@ -1,6 +1,6 @@
 [managers.system]
 items = [
-	"discord",                   # discord communication app
+	#	"discord",                   # discord communication app
 	"kde-connect",               # mobile connection
 	"nextcloud-client",          # cloud client
 	"obs-studio",                # screen recording tool
@@ -15,4 +15,5 @@ items = [
 items = [
 	"com.spotify.Client",
 	"org.signal.Signal",
+	"dev.vencord.Vesktop",		# 3rd party discord client for wayland streaming
 ] # music B)

@@ -114,7 +114,6 @@ echo
 echo " - JetBrains IntelliJ					(https://www.jetbrains.com/idea/download/?section=linux)"
 echo " - JetBrains WebStorm					(https://www.jetbrains.com/webstorm/download/#section=linux)"
 echo " - Super Productivity					(https://github.com/johannesjo/super-productivity/releases)"
-echo " - Vescord/Vesktop					(https://github.com/Vencord/Vesktop)"
 echo
 echo -e "${BLUE}Also configure the following (or install if not using Nobara):${GREEN}"
 echo
