@@ -5,4 +5,5 @@ items = [
 	"flatpak",   # flatpak package manager
 	"stow",      # parent directory linker (for dotfiles)
 	"zsh",       # z shell
+	"bottles",	 # windows bottles
 ]
