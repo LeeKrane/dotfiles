@@ -85,6 +85,7 @@ source $HOME/.krane-rc/aliases
 source $HOME/.krane-rc/zsh/krane-rc
 source $HOME/.krane-rc/zsh/paths
 source $HOME/.krane-rc/zsh/local-paths
+source $HOME/.krane-rc/zsh/local-vars
 
 # User configuration
 
