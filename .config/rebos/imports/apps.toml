@@ -16,4 +16,5 @@ items = [
 	"page.kramo.Cartridges",				# uniform game launcher
 	"com.jeffser.Alpaca",					# Ollama client
 	"dev.bragefuglseth.Keypunch",			# typing speed practice
+	"com.dec05eba.gpu_screen_recorder",		# guess what: gpu screen recorder :)
 ]
