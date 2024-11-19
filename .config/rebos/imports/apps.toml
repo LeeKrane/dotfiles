@@ -18,4 +18,5 @@ items = [
 	"dev.bragefuglseth.Keypunch",			# typing speed practice
 	"com.dec05eba.gpu_screen_recorder",		# guess what: gpu screen recorder :)
 	"io.missioncenter.MissionCenter",		# better system monitor
+	"com.notesnook.Notesnook",				# note taking
 ]
