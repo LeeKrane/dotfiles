@@ -1,19 +1,17 @@
 [managers.system]
 items = [
-	#	"discord",                   # discord communication app
-	"kde-connect",               # mobile connection
-	"nextcloud-client",          # cloud client
-	"obs-studio",                # screen recording tool
-	"flameshot",                 # screenshot tool
-	#	"flameshot",                 # screenshot tool
-	"vlc",                       # media player
-	"chromium",                  # chromium browser for usage with VIA
-	"virt-manager",				 # virtual machine manager
+	"kde-connect",			# mobile connection
+	"nextcloud-client",		# cloud client
+	"obs-studio",			# screen recording tool
+	"flameshot",			# screenshot tool
+	"vlc",					# media player
+	"chromium",				# chromium browser for usage with VIA
+	"virt-manager",			# virtual machine manager
 ]
 
 [managers.flatpak]
 items = [
-	"com.spotify.Client", # music B)
 	"org.signal.Signal",
-	"dev.vencord.Vesktop",		# 3rd party discord client for wayland streaming
+	"com.spotify.Client",					# music B)
+	"dev.vencord.Vesktop",					# 3rd party discord client for wayland streaming
 ]
