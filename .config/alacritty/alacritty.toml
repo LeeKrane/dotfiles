@@ -4,7 +4,7 @@ dynamic_title = true
 dynamic_padding = true
 startup_mode = "Maximized"
 
-[shell]
+[terminal.shell]
 program = "/usr/bin/zsh"
 
 [env]
@@ -120,3 +120,5 @@ background = "#eed49f"
 [colors.hints.end]
 foreground = "#24273a"
 background = "#a5adcb"
+
+[terminal]
