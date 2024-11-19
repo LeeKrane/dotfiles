@@ -13,4 +13,5 @@ items = [
 items = [
 	"com.spotify.Client",					# music B)
 	"dev.vencord.Vesktop",					# 3rd party discord client for wayland streaming
+	"page.kramo.Cartridges",				# uniform game launcher
 ]
