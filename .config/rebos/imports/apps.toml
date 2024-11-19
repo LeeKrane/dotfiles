@@ -15,4 +15,5 @@ items = [
 	"dev.vencord.Vesktop",					# 3rd party discord client for wayland streaming
 	"page.kramo.Cartridges",				# uniform game launcher
 	"com.jeffser.Alpaca",					# Ollama client
+	"dev.bragefuglseth.Keypunch",			# typing speed practice
 ]
