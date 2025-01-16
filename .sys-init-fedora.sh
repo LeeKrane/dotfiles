@@ -33,12 +33,12 @@ echo
 # important repositories and keys for rebos
 echo -e "${BLUE}Adding needed dnf repositories, copr repositories and rpm keys:${NC}"
 # terra
-sudo dnf -y config-manager --add-repo https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
+sudo dnf -y config-manager addrepo --from-repofile=https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
 sudo dnf -y --refresh upgrade
 sudo dnf -y install terra-release
 
 # docker
-sudo dnf -y config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf -y config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
 sudo dnf -y --refresh upgrade
 #sudo usermod -a -G docker krane
 
