@@ -10,6 +10,7 @@ items = [
 [managers.pip]
 items = [
 	"toml", # toml package for python (used for alacritty assembler script)
+	"pre-commit",	# pre-commit for checking secrets before git commit
 ]
 
 [managers.npm-global]
