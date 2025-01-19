@@ -122,7 +122,6 @@ echo
 echo -e "${BLUE}Installing Rebos for the remaining system packages:${NC}"
 cargo install rebos
 echo "export PATH='/home/$USER/.cargo/bin/:$PATH'" >.krane-rc/bash/local-paths
-source ~/.bashrc
 echo
 echo -e "${BLUE}Installing the remaining system packages via Rebos:${NC}"
 rebos setup
