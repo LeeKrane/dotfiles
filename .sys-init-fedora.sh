@@ -38,8 +38,8 @@ read -p "Do you want to create a BTRFS snapshot of '/home' (@home) before runnin
 
 # Check the response
 if [[ "$responseHome" == "y" || "$responseHome" == "Y" ]]; then
-    MOUNT_POINT="/"
-    SNAPSHOT_NAME="root_snapshot_$(date +%Y%m%d%H%M%S)" # Snapshot name with current timestamp
+    MOUNT_POINT="/home"
+    SNAPSHOT_NAME="home_snapshot_$(date +%Y%m%d%H%M%S)" # Snapshot name with current timestamp
 
     # Check if BTRFS is mounted at the specified mount point
     if mount | grep -q "$MOUNT_POINT"; then
