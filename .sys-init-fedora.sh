@@ -144,6 +144,8 @@ sudo git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/p
 echo
 echo
 echo -e "${BLUE}Replacing automatically overwritten .zshrc file with that from dotfiles...${NC}"
+touch $HOME/.dotfiles/.krane-rc/bash/local-paths
+touch $HOME/.dotfiles/.krane-rc/zsh/local-paths
 rm $HOME/.zshrc
 cd $HOME/.dotfiles/
 stow .
