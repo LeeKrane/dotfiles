@@ -60,8 +60,8 @@ echo
 
 # dotfiles
 echo -e "${BLUE}Creating folders for your dotfiles...${NC}"
-mkdir $HOME/.config/nvim
-mkdir $HOME/.local/share/nvim
+mkdir -p $HOME/.config/nvim
+mkdir -p $HOME/.local/share/nvim
 echo
 echo
 echo -e "${BLUE}Linking your dotfiles via stow...${NC}"
