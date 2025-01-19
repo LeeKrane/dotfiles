@@ -43,6 +43,8 @@ if [[ "$responseHome" == "y" || "$responseHome" == "Y" ]]; then
 
     # Check if BTRFS is mounted at the specified mount point
     if mount | grep -q "$MOUNT_POINT"; then
+        # Create needed directories if needed
+        sudo mkdir -p "$MOUNT_POINT/.snapshots/"
         # Create the snapshot
         sudo btrfs subvolume snapshot "$MOUNT_POINT" "$MOUNT_POINT/.snapshots/$SNAPSHOT_NAME"
         echo -e "${GREEN}Snapshot '$SNAPSHOT_NAME' created successfully!${NC}"
