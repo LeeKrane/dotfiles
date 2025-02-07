@@ -23,4 +23,5 @@ items = [
 	"io.gitlab.theevilskeleton.Upscaler",	# image upscaling
 	"com.hunterwittenborn.Celeste",			# cloud sync gui (rclone)
 	"no.mifi.losslesscut",				# quick video cutting
+	"com.heroicgameslauncher.hgl",			# heroic games launcher for epic games
 ]
