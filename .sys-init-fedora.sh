@@ -169,6 +169,10 @@ echo " - Proton GE"
 echo " - Lutris game launcher (for EA, Ubisoft, Battle.net)"
 echo " - Heroic game launcher (for Epic Games, GOG, Prime Gaming)"
 echo
+echo -e "${BLUE}Finally enable ${RED}ProtonDrive syncing${BLUE} via crontab by adding the following line to crontab:${GREEN}"
+echo
+echo "@reboot bash ~/.dotfiles/.proton-rclone-sync.sh"
+echo
 echo
 echo -e "${BLUE}(If using Nobara, remember to only update via the 'Update System' program provided by Glorious Eggroll)"
 echo -e "Exiting...${NC}"
