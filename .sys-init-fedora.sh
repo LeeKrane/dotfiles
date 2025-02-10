@@ -15,46 +15,44 @@ read -p "Do you want to create a BTRFS snapshot of '/' (@) before running the in
 
 # Check the response
 if [[ "$responseRoot" == "y" || "$responseRoot" == "Y" ]]; then
-    MOUNT_POINT="/"
-    SNAPSHOT_NAME="root_snapshot_$(date +%Y%m%d%H%M%S)" # Snapshot name with current timestamp
+	MOUNT_POINT="/"
+	SNAPSHOT_NAME="root_snapshot_$(date +%Y%m%d%H%M%S)" # Snapshot name with current timestamp
 
-    # Check if BTRFS is mounted at the specified mount point
-    if mount | grep -q "$MOUNT_POINT"; then
-        # Create needed directories if needed
-        sudo mkdir -p "$MOUNT_POINT/.snapshots/"
-        # Create the snapshot
-        sudo btrfs subvolume snapshot "$MOUNT_POINT" "$MOUNT_POINT/.snapshots/$SNAPSHOT_NAME"
-        echo -e "${GREEN}Snapshot '$SNAPSHOT_NAME' created successfully!${NC}"
-    else
-        echo -e "${RED}Error: BTRFS is not mounted at $MOUNT_POINT.${NC}"
-    fi
+	# Check if BTRFS is mounted at the specified mount point
+	if mount | grep -q "$MOUNT_POINT"; then
+		# Create needed directories if needed
+		sudo mkdir -p "$MOUNT_POINT/.snapshots/"
+		# Create the snapshot
+		sudo btrfs subvolume snapshot "$MOUNT_POINT" "$MOUNT_POINT/.snapshots/$SNAPSHOT_NAME"
+		echo -e "${GREEN}Snapshot '$SNAPSHOT_NAME' created successfully!${NC}"
+	else
+		echo -e "${RED}Error: BTRFS is not mounted at $MOUNT_POINT.${NC}"
+	fi
 else
-    echo -e "${GREEN}No snapshot created.${NC}"
+	echo -e "${GREEN}No snapshot created.${NC}"
 fi
-
 
 # btrfs snapshot /home
 read -p "Do you want to create a BTRFS snapshot of '/home' (@home) before running the install script? (y/n): " responseHome
 
 # Check the response
 if [[ "$responseHome" == "y" || "$responseHome" == "Y" ]]; then
-    MOUNT_POINT="/home"
-    SNAPSHOT_NAME="home_snapshot_$(date +%Y%m%d%H%M%S)" # Snapshot name with current timestamp
+	MOUNT_POINT="/home"
+	SNAPSHOT_NAME="home_snapshot_$(date +%Y%m%d%H%M%S)" # Snapshot name with current timestamp
 
-    # Check if BTRFS is mounted at the specified mount point
-    if mount | grep -q "$MOUNT_POINT"; then
-        # Create needed directories if needed
-        sudo mkdir -p "$MOUNT_POINT/.snapshots/"
-        # Create the snapshot
-        sudo btrfs subvolume snapshot "$MOUNT_POINT" "$MOUNT_POINT/.snapshots/$SNAPSHOT_NAME"
-        echo -e "${GREEN}Snapshot '$SNAPSHOT_NAME' created successfully!${NC}"
-    else
-        echo -e "${RED}Error: BTRFS is not mounted at $MOUNT_POINT.${NC}"
-    fi
+	# Check if BTRFS is mounted at the specified mount point
+	if mount | grep -q "$MOUNT_POINT"; then
+		# Create needed directories if needed
+		sudo mkdir -p "$MOUNT_POINT/.snapshots/"
+		# Create the snapshot
+		sudo btrfs subvolume snapshot "$MOUNT_POINT" "$MOUNT_POINT/.snapshots/$SNAPSHOT_NAME"
+		echo -e "${GREEN}Snapshot '$SNAPSHOT_NAME' created successfully!${NC}"
+	else
+		echo -e "${RED}Error: BTRFS is not mounted at $MOUNT_POINT.${NC}"
+	fi
 else
-    echo -e "${GREEN}No snapshot created.${NC}"
+	echo -e "${GREEN}No snapshot created.${NC}"
 fi
-
 
 # initial programs
 echo -e "${BLUE}Installing initial programs needed for system setup:${NC}"
