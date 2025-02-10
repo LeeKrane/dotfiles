@@ -21,7 +21,7 @@ items = [
 	"io.missioncenter.MissionCenter",		# better system monitor
 	"com.notesnook.Notesnook",				# note taking
 	"io.gitlab.theevilskeleton.Upscaler",	# image upscaling
-	"com.hunterwittenborn.Celeste",			# cloud sync gui (rclone)
+	#"com.hunterwittenborn.Celeste",			# cloud sync gui (rclone)
 	"no.mifi.losslesscut",				# quick video cutting
 	"com.heroicgameslauncher.hgl",			# heroic games launcher for epic games
 ]
