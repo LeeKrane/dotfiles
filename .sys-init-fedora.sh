@@ -172,30 +172,5 @@ echo " - Lutris game launcher (for EA, Ubisoft, Battle.net)"
 echo " - Heroic game launcher (for Epic Games, GOG, Prime Gaming)"
 echo
 echo
-echo
-echo -e "${RED}------=============================================================================------"
-echo "------======                            WIREGUARD                            ======------"
-echo "------=============================================================================------"
-echo
-echo -e "${BLUE}For a wireguard configuration, please execute ${GREEN}wg genkey${BLUE} and paste the generated private key into the command ${GREEN}wg pubkey${BLUE}, then press ${GREEN}ENTER${BLUE} and ${GREEN}CTRL + D${BLUE}. Then copy the following config into the file ${GREEN}/etc/wireguard/wg0.conf${BLUE}, while replacing the multiple red marked ${RED}X${BLUE}'es:${GREEN}"
-echo
-echo "[Interface]"
-echo -e "Address = 192.168.82.${RED}x${GREEN}/24"
-echo "ListenPort = 13231"
-echo -e "PrivateKey = ${RED}X${GREEN}"
-echo
-echo "[Peer]"
-echo -e "PublicKey = ${RED}X${GREEN}"
-echo "AllowedIPs = 192.168.82.0/24"
-echo "Endpoint = wg.kradev.net:13231"
-echo
-echo
-echo -e "${BLUE}Don't forget to add an entry of this peer on the server using the generated public key and the wanted IP:${GREEN}"
-echo
-echo -e "[Peer] # ${RED}device-name${GREEN}"
-echo -e "PublicKey = ${RED}X${GREEN}"
-echo -e "AllowedIPs = 192.168.82.${RED}X${GREEN}/32"
-echo
-echo
 echo -e "${BLUE}(If using Nobara, remember to only update via the 'Update System' program provided by Glorious Eggroll)"
 echo -e "Exiting...${NC}"
