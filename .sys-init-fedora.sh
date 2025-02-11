@@ -64,6 +64,7 @@ echo
 echo -e "${BLUE}Creating folders for your dotfiles...${NC}"
 mkdir -p $HOME/.config/nvim
 mkdir -p $HOME/.local/share/nvim
+mkdir -p $HOME/.config/systemd/user
 echo
 echo
 echo -e "${BLUE}Linking your dotfiles via stow...${NC}"
@@ -147,6 +148,12 @@ cd $HOME/.dotfiles/
 stow .
 echo
 echo
+echo -e "${BLUE}Enabling rclone ProtonDrive sync service...${NC}"
+chmod +x $HOME/.dotfiles/.proton-drive-rclone-mount.sh
+systemctl --user daemon-reload
+systemctl --user enable proton-drive-mount.service
+echo
+echo
 echo
 echo
 echo
@@ -168,10 +175,7 @@ echo
 echo " - Proton GE"
 echo " - Lutris game launcher (for EA, Ubisoft, Battle.net)"
 echo " - Heroic game launcher (for Epic Games, GOG, Prime Gaming)"
-echo
-echo -e "${BLUE}Finally enable ${RED}ProtonDrive syncing${BLUE} via crontab by adding the following line to crontab:${GREEN}"
-echo
-echo "@reboot bash ~/.dotfiles/.proton-rclone-sync.sh"
+echo " - Rclone (rclone config) (for ProtonDrive sync)"
 echo
 echo
 echo -e "${BLUE}(If using Nobara, remember to only update via the 'Update System' program provided by Glorious Eggroll)"
