@@ -40,6 +40,7 @@ get_input() {
 declare -A prompts=(
 	[resBtrfsRoot]="Do you want to create a BTRFS snapshot of '/' (@) before running the install script?"
 	[resBtrfsHome]="Do you want to create a BTRFS snapshot of '/home' (@home) before running the install script?"
+	[resInitPrograms]="Do you want to install the initial programs needed for the system setup?"
 	[resLinkDotfiles]="Do you want to link your dotfiles?"
 	[resRepositories]="Do you want to enable all dnf repositories?"
 	[resGrubTheme]="Do you want to enable the custom GRUB theme?"
@@ -56,6 +57,7 @@ declare -A prompts=(
 ordered_keys=(
 	resBtrfsRoot
 	resBtrfsHome
+	resInitPrograms
 	resLinkDotfiles
 	resRepositories
 	resGrubTheme
@@ -126,8 +128,12 @@ echo
 echo
 
 # initial programs
-echo -e "${BLUE}Installing initial programs needed for system setup:${NC}"
-sudo dnf -y install stow cargo plymouth-plugin-script
+if get_input "$resInitPrograms"; then
+	echo -e "${BLUE}Installing initial programs needed for system setup:${NC}"
+	sudo dnf -y install stow cargo plymouth-plugin-script
+else
+	echo -e "${GREEN}Skipped initial program installation.${NC}"
+fi
 echo
 echo
 
