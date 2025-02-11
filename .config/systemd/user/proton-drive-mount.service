@@ -5,7 +5,7 @@ Requires=graphical-session.target
 
 [Service]
 Type=oneshot
-ExecStart=%h/.dotfiles/.proton-drive-rclone-mount.sh
+ExecStart=/usr/bin/systemd-run --user --scope /bin/bash -c "%h/.dotfiles/.proton-drive-rclone-mount.sh"
 Environment=DISPLAY=:0
 Environment=XAUTHORITY=%h/.Xauthority
 ExecStartPost=/usr/bin/sleep 10
