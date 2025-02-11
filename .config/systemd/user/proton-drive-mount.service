@@ -1,0 +1,15 @@
+[Unit]
+Description=Mount Proton Drive via rclone
+After=graphical-session.target
+Requires=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.dotfiles/.proton-drive-rclone-mount.sh
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=%h/.Xauthority
+ExecStartPost=/usr/bin/sleep 10
+
+[Install]
+WantedBy=graphical-session.target
+
