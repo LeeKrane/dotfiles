@@ -4,36 +4,53 @@ NC="\033[0m" # no color
 BLUE="\033[1;34m"
 GREEN="\033[1;32m"
 RED="\033[1;31m"
+CLEAR_LINE="\r\033[K"
 
-echo -e "${BLUE}Always clone the dotfiles repository as ~/.dotfiles"
-echo -e "Run this script without sudo. Rebos won't work if this script is run as sudo.${NC}"
-echo
-echo
-
-# input validation function
-validate_input() {
-	local input="$1"
-	case "$input" in
-	y | Y | yes | Yes | YES | n | N | no | No | NO | "")
-		return 0 # Valid input
-		;;
-	*)
-		return 1 # Invalid input
-		;;
-	esac
+# Cleanup function to restore terminal settings
+cleanup() {
+	stty "$OLD_SETTINGS"
+	tput cnorm
+	echo -e "\n\n${RED}Script interrupted.${NC}"
+	exit 1
 }
 
-# input meaning function
-get_input() {
-	local input="$1"
-	case "$input" in
-	y | Y | yes | Yes | YES | "")
-		return 0 # Execute script part
-		;;
-	*)
-		return 1 # Skip script part
-		;;
-	esac
+# Function to display a single checkbox menu and get user selection
+choose_single_checkbox() {
+	local prompt="$1"
+	local checked="$2"
+
+	while true; do
+		printf $CLEAR_LINE
+		echo -n -e "${BLUE}> [${checked}] $prompt${NC}"
+
+		# Read a single character
+		key=$(dd bs=1 count=1 2>/dev/null)
+
+		case "$key" in
+		" ") # Space
+			if [ "$checked" == " " ]; then
+				checked="x"
+			else
+				checked=" "
+			fi
+			continue
+			;;
+		$'\r') # Enter
+			printf $CLEAR_LINE
+			echo -n "  [${checked}] $prompt"
+			if [ "$checked" == "x" ]; then
+				return 0
+			else
+				return 1
+			fi
+			break
+			;;
+		q) # Quit
+			cleanup
+			return 2
+			;;
+		esac
+	done
 }
 
 # Declare an associative array to map variables to prompts
@@ -72,23 +89,49 @@ ordered_keys=(
 	resFinishOutput
 )
 
+echo -e "${BLUE}Always clone the dotfiles repository as ~/.dotfiles"
+echo -e "Run this script without sudo. Rebos won't work if this script is run as sudo.${NC}"
+echo
+echo
+echo -e "${BLUE}Press ${GREEN}Space${BLUE} to toggle, ${GREEN}Enter${BLUE} to confirm and ${GREEN}q${BLUE} to quit:${NC}"
+echo
+
+# Hide cursor
+tput civis
+# Save current terminal settings
+OLD_SETTINGS=$(stty -g)
+# Disable canonical mode (line buffering) and echoing
+stty raw -echo
+
 # Collect user inputs in the defined order
+default_checkbox_value="x"
+if choose_single_checkbox "Checkboxes by default toggled?" "x"; then
+	default_checkbox_value="x"
+else
+	default_checkbox_value=" "
+fi
+echo
+echo
+
 for var in "${ordered_keys[@]}"; do
-	while true; do
-		read -p "${prompts[$var]} (y/n or empty for yes): " response
-		if validate_input "$response"; then
-			eval "$var=\"$response\"" # Assign response to the corresponding variable
-			break
-		else
-			echo "Invalid input. Please enter y/Y/yes/Yes/YES or n/N/no/No/NO (empty counts as no)."
-		fi
-	done
+	if choose_single_checkbox "${prompts[$var]}" "$default_checkbox_value"; then
+		eval "$var=y" # Assign 'y' to the variable
+	else
+		eval "$var=n" # Assign 'n' to the variable
+	fi
+	echo
 done
+
+# Restore original terminal settings
+stty "$OLD_SETTINGS"
+# Show cursor
+tput cnorm
 echo
 echo
 
 # btrfs snapshot /
-if get_input "$resBtrfsRoot"; then
+if [[ "$resBtrfsRoot" == "y" ]]; then
+	echo
 	MOUNT_POINT="/"
 	SNAPSHOT_NAME="root_snapshot_$(date +%Y%m%d%H%M%S)" # Snapshot name with current timestamp
 
@@ -102,14 +145,14 @@ if get_input "$resBtrfsRoot"; then
 	else
 		echo -e "${RED}Error: BTRFS is not mounted at $MOUNT_POINT.${NC}"
 	fi
+	echo
 else
 	echo -e "${GREEN}Skipped ROOT BTRFS snapshot creation.${NC}"
 fi
-echo
-echo
 
 # btrfs snapshot /home
-if get_input "$resBtrfsHome"; then
+if [[ "$resBtrfsHome" == "y" ]]; then
+	echo
 	MOUNT_POINT="/home"
 	SNAPSHOT_NAME="home_snapshot_$(date +%Y%m%d%H%M%S)" # Snapshot name with current timestamp
 
@@ -123,24 +166,24 @@ if get_input "$resBtrfsHome"; then
 	else
 		echo -e "${RED}Error: BTRFS is not mounted at $MOUNT_POINT.${NC}"
 	fi
+	echo
 else
 	echo -e "${GREEN}Skipped HOME BTRFS snapshot creation.${NC}"
 fi
-echo
-echo
 
 # initial programs
-if get_input "$resInitPrograms"; then
+if [[ "$resInitPrograms" == "y" ]]; then
+	echo
 	echo -e "${BLUE}Installing initial programs needed for system setup:${NC}"
 	sudo dnf -y install stow cargo plymouth-plugin-script
+	echo
 else
 	echo -e "${GREEN}Skipped initial program installation.${NC}"
 fi
-echo
-echo
 
 # dotfiles
-if get_input "$resLinkDotfiles"; then
+if [[ "$resLinkDotfiles" == "y" ]]; then
+	echo
 	echo -e "${BLUE}Creating folders for your dotfiles...${NC}"
 	mkdir -p $HOME/.config/nvim
 	mkdir -p $HOME/.local/share/nvim
@@ -152,14 +195,14 @@ if get_input "$resLinkDotfiles"; then
 	stow --adopt .
 	git reset --hard
 	cd
+	echo
 else
 	echo -e "${GREEN}Skipped dotfiles linking.${NC}"
 fi
-echo
-echo
 
 # important repositories and keys for rebos
-if get_input "$resRepositories"; then
+if [[ "$resRepositories" == "y" ]]; then
+	echo
 	echo -e "${BLUE}Adding needed dnf repositories, copr repositories and rpm keys:${NC}"
 	# terra
 	sudo dnf -y config-manager addrepo --from-repofile=https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
@@ -181,38 +224,38 @@ if get_input "$resRepositories"; then
 	sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 	echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo >/dev/null
 	dnf -y check-update
+	echo
 else
 	echo -e "${GREEN}Skipped repository enabling.${NC}"
 fi
-echo
-echo
 
 # grub 2 theme
-if get_input "$resGrubTheme"; then
+if [[ "$resGrubTheme" == "y" ]]; then
+	echo
 	echo -e "${BLUE}Generating custom grub2 theme...${NC}"
 	sudo mkdir /boot/grub2/themes
 	sudo cp -r ~/.dotfiles/.grub-themes/CyberEXS/ /boot/grub2/themes/
 	sudo cp ~/.dotfiles/.grub /etc/default/grub
 	sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+	echo
 else
 	echo -e "${GREEN}Skipped repository enabling.${NC}"
 fi
-echo
-echo
 
 # plymouth theme
-if get_input "$resPlymouthTheme"; then
+if [[ "$resPlymouthTheme" == "y" ]]; then
+	echo
 	echo -e "${BLUE}Generating custom plymouth boot screen theme...${NC}"
 	sudo cp -r ~/.dotfiles/.plymouth-themes/lone /usr/share/plymouth/themes/
 	sudo plymouth-set-default-theme lone
+	echo
 else
 	echo -e "${GREEN}Skipped repository enabling.${NC}"
 fi
-echo
-echo
 
 # rebos setup for remaining programs
-if get_input "$resRebosSetup"; then
+if [[ "$resRebosSetup" == "y" ]]; then
+	echo
 	echo -e "${BLUE}Installing Rebos for the remaining system packages:${NC}"
 	cargo install rebos
 	echo "export PATH='/home/$USER/.cargo/bin/:$PATH'" >.krane-rc/bash/local-paths
@@ -221,57 +264,57 @@ if get_input "$resRebosSetup"; then
 	rebos setup
 	rebos config init
 	rebos gen commit "[sys-init] automatic initial base system configuration"
+	echo
 else
 	echo -e "${GREEN}Skipped Rebos setup.${NC}"
 fi
-echo
-echo
 
 # remaining program install via rebos
-if get_input "$resRebosInstall"; then
+if [[ "$resRebosInstall" == "y" ]]; then
+	echo
 	echo -e "${BLUE}Installing the remaining system packages via Rebos:${NC}"
 	rebos gen current build
+	echo
 else
 	echo -e "${GREEN}Skipped Rebos system package install.${NC}"
 fi
-echo
-echo
 
-if get_input "$resZshInstall"; then
+if [[ "$resZshInstall" == "y" ]]; then
+	echo
 	echo -e "${BLUE}Changing default shell to zsh and installing oh-my-zsh...${NC}"
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+	echo
 else
 	echo -e "${GREEN}Skipped ZSH install.${NC}"
 fi
-echo
-echo
 
-if get_input "$resZshPlugins"; then
+if [[ "$resZshPlugins" == "y" ]]; then
+	echo
 	echo -e "${BLUE}Installing oh-my-zsh plugins...${NC}"
 	cd
 	sudo rm -rf $ZSH_CUSTOM/plugins/zsh-autosuggestions && sudo git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
 	sudo rm -rf $ZSH_CUSTOM/plugins/zsh-syntax-highlighting && sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 	sudo rm -rf $ZSH_CUSTOM/themes/powerlevel10k && sudo git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+	echo
 else
 	echo -e "${GREEN}Skipped ZSH install.${NC}"
 fi
-echo
-echo
 
-if get_input "$resZshInstall" || get_input "$resZshPlugins"; then
+if [[ "$resZshInstall" == "y" ]] || [[ "$resZshPlugins" == "y" ]]; then
+	echo
 	echo -e "${BLUE}Replacing automatically overwritten .zshrc file with that from dotfiles...${NC}"
 	touch $HOME/.dotfiles/.krane-rc/bash/local-paths
 	touch $HOME/.dotfiles/.krane-rc/zsh/local-paths
 	rm $HOME/.zshrc
 	cd $HOME/.dotfiles/
 	stow .
+	echo
 else
 	echo -e "${GREEN}Skipped .zshrc fixup.${NC}"
 fi
-echo
-echo
 
-if get_input "$resRclone"; then
+if [[ "$resRclone" == "y" ]]; then
+	echo
 	echo -e "${BLUE}Creating btrfs subvolume for ProtonDrive...${NC}"
 	CURRENT_USER=$(logname)
 	CURRENT_GROUP=$(id -gn "$CURRENT_USER")
@@ -282,13 +325,13 @@ if get_input "$resRclone"; then
 	chmod +x $HOME/.dotfiles/.proton-drive-rclone-mount.sh
 	systemctl --user daemon-reload
 	systemctl --user enable proton-drive-mount.service
+	echo
 else
 	echo -e "${GREEN}Skipped rclone ProtonDrive sync enabling.${NC}"
 fi
-echo
-echo
 
-if get_input "$resZsa"; then
+if [[ "$resZsa" == "y" ]]; then
+	echo
 	echo -e "${BLUE}Linking ZSA keyboard udev rules...${NC}"
 	sudo ln -s $HOME/.dotfiles/.udev/50-zsa.rules /etc/udev/rules.d/
 
@@ -297,13 +340,13 @@ if get_input "$resZsa"; then
 	ZSA_GROUP=plugdev
 	sudo groupadd $ZSA_GROUP
 	sudo usermod -aG $ZSA_GROUP $CURRENT_USER
+	echo
 else
 	echo -e "${GREEN}Skipped ZSA keyboard udev rules setup.${NC}"
 fi
-echo
-echo
 
-if get_input "$resFinishOutput"; then
+if [[ "$resFinishOutput" == "y" ]]; then
+	echo
 	echo -e "${RED}------=============================================================================------"
 	echo "------======                            FINISHED                             ======------"
 	echo "------=============================================================================------"
@@ -327,6 +370,5 @@ if get_input "$resFinishOutput"; then
 else
 	echo -e "${GREEN}Skipped finish output.${NC}"
 fi
-echo
 echo
 echo -e "Exiting...${NC}"
