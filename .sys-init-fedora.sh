@@ -458,7 +458,7 @@ if [[ "$resRclone" == "y" ]]; then
 	echo
 	echo -e "${BLUE}Creating btrfs subvolume for ProtonDrive...${NC}"
 	CURRENT_USER=$(logname)
-	CURRENT_GROUP=$(id -gn \"$CURRENT_USER\")
+	CURRENT_GROUP=$(id -gn "$CURRENT_USER")
 	execute "sudo btrfs sub create /@protondrive"
 	execute "sudo chown -R \"$CURRENT_USER:$CURRENT_GROUP\" /@protondrive"
 
