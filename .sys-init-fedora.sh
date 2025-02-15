@@ -11,6 +11,11 @@ BLUE="\033[1;34m"
 GREEN="\033[1;32m"
 RED="\033[1;31m"
 CLEAR_LINE="\r\033[K"
+CLEAR_5_LINES="\033[5A${CLEAR_LINE%K}J"
+CLEAR_7_LINES="\033[7A${CLEAR_LINE%K}J"
+
+# Trap the SIGINT signal (CTRL+C)
+trap cleanup INT
 
 # Cleanup function to restore terminal settings
 cleanup() {
@@ -18,6 +23,52 @@ cleanup() {
 	tput cnorm
 	echo -e "\n\n${RED}Script interrupted.${NC}"
 	exit 1
+}
+
+# Function to display a menu and get user selection
+choose_installation_mode() {
+	local prompt="Choose installation mode:\n"
+	local options=("Partial (default: YES)" "Partial (default: NO)" "Full (do everything)")
+	local selected=0
+	local num_options=${#options[@]}
+
+	# Hide cursor
+	tput civis
+
+	while true; do
+		echo -e "${BLUE}$prompt${NC}"
+		for i in $(seq 0 $((num_options - 1))); do
+			if [ "$i" -eq "$selected" ]; then
+				echo -e "${GREEN}> ${options[$i]}${NC}"
+			else
+				echo "  ${options[$i]}"
+			fi
+		done
+
+		read -s -n 1 key
+		case "$key" in
+		A) # Up arrow
+			selected=$(((selected - 1 + num_options) % num_options))
+			;;
+		B) # Down arrow
+			selected=$(((selected + 1) % num_options))
+			;;
+		"") # Enter
+			printf $CLEAR_7_LINES
+			# Show cursor
+			tput cnorm
+			echo -e "${BLUE}Chosen installation mode: ${options[$selected]}${NC}"
+			echo
+			return $selected
+			;;
+		q) # Quit
+			cleanup
+			exit 1
+			;;
+		esac
+
+		printf $CLEAR_5_LINES
+	done
 }
 
 # Function to display a single checkbox menu and get user selection
@@ -101,37 +152,57 @@ ordered_keys=(
 # //////////////////////////////////////////////////////////////////////////////////////////////////
 # --------------------------------------------------------------------------------------------------
 
+# Save current terminal settings
+OLD_SETTINGS=$(stty -g)
+
 echo -e "${BLUE}Always clone the dotfiles repository as ~/.dotfiles"
 echo -e "Run this script without sudo. Rebos won't work if this script is run as sudo.${NC}"
 echo
+
+echo -e "${BLUE}Press ${GREEN}Enter${BLUE} to confirm or ${GREEN}q${BLUE} to quit:${NC}"
 echo
-echo -e "${BLUE}Press ${GREEN}Space${BLUE} to toggle, ${GREEN}Enter${BLUE} to confirm and ${GREEN}q${BLUE} to quit:${NC}"
-echo
+
+# Choose the installation mode
+choose_installation_mode
+
+case "$?" in
+0) # partial install with default toggled
+	default_checkbox_value="x"
+	full_install="n"
+	;;
+1) # partial install with default untoggled
+	default_checkbox_value=" "
+	full_install="n"
+	;;
+2) # full install
+	default_checkbox_value="x"
+	full_install="y"
+	;;
+*) # Quit
+	cleanup
+	exit 1
+	;;
+esac
 
 # Hide cursor
 tput civis
-# Save current terminal settings
-OLD_SETTINGS=$(stty -g)
 # Disable canonical mode (line buffering) and echoing
 stty raw -echo
 
-# Collect user inputs in the defined order
-default_checkbox_value="x"
-if choose_single_checkbox "Checkboxes by default toggled?" "x"; then
-	default_checkbox_value="x"
-else
-	default_checkbox_value=" "
-fi
+echo -e "${BLUE}Press ${GREEN}Space${BLUE} to toggle, ${GREEN}Enter${BLUE} to confirm and ${GREEN}q${BLUE} to quit:${NC}"
 echo
-echo
-
+# Collect user inputs and assign to variables directly
 for var in "${ordered_keys[@]}"; do
-	if choose_single_checkbox "${prompts[$var]}" "$default_checkbox_value"; then
-		eval "$var=y" # Assign 'y' to the variable
+	if [[ "$full_install" == "y" ]]; then
+		eval "$var=y" # Assign 'y' to all variables
 	else
-		eval "$var=n" # Assign 'n' to the variable
+		if choose_single_checkbox "${prompts[$var]}" "$default_checkbox_value"; then
+			eval "$var=y" # Assign 'y' to the variable
+		else
+			eval "$var=n" # Assign 'n' to the variable
+		fi
+		echo
 	fi
-	echo
 done
 
 # Restore original terminal settings
