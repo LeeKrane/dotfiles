@@ -53,7 +53,7 @@ choose_single_checkbox() {
 			;;
 		q) # Quit
 			cleanup
-			return 2
+			exit 1
 			;;
 		esac
 	done
