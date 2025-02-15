@@ -14,6 +14,35 @@ CLEAR_LINE="\r\033[K"
 CLEAR_5_LINES="\033[5A${CLEAR_LINE%K}J"
 CLEAR_7_LINES="\033[7A${CLEAR_LINE%K}J"
 
+# Function to display help message
+show_help() {
+	echo -e "${BLUE}Usage: $0 [options]${NC}"
+	echo -e "${BLUE}Options:${NC}"
+	echo -e "  -d, --dry-run   Perform a dry run, showing commands without executing them."
+	echo -e "  -h, --help      Display this help message."
+}
+
+# Check for dry-run / help options
+dry_run=false
+while [[ $# -gt 0 ]]; do
+	case "$1" in
+	-d | --dry-run)
+		dry_run=true
+		shift
+		;;
+	-h | --help)
+		show_help
+		exit 0
+		;;
+	*)
+		# Unknown option
+		echo -e "${RED}Unknown option: $1${NC}"
+		show_help
+		exit 1
+		;;
+	esac
+done
+
 # Trap the SIGINT signal (CTRL+C)
 trap cleanup INT
 
@@ -152,6 +181,12 @@ ordered_keys=(
 # //////////////////////////////////////////////////////////////////////////////////////////////////
 # --------------------------------------------------------------------------------------------------
 
+if $dry_run; then
+	echo -e "${RED}!!! THIS IS JUST A DRY RUN, NOTHING WILL ACTUALLY HAPPEN ON THE MACHINE !!!${NC}"
+	echo
+	echo
+fi
+
 # Save current terminal settings
 OLD_SETTINGS=$(stty -g)
 
@@ -218,6 +253,23 @@ echo
 # //////////////////////////////////////////////////////////////////////////////////////////////////
 # --------------------------------------------------------------------------------------------------
 
+# Function to execute commands, respecting dry_run
+execute() {
+	local command="$1"
+	echo -n -e " ${GREEN}>${NC} "
+	echo "$command"
+	if ! $dry_run; then
+		eval "$command"
+	fi
+}
+
+execute_non_verbose() {
+	local command="$1"
+	if ! $dry_run; then
+		eval "$command"
+	fi
+}
+
 # btrfs snapshot /
 if [[ "$resBtrfsRoot" == "y" ]]; then
 	echo
@@ -227,10 +279,10 @@ if [[ "$resBtrfsRoot" == "y" ]]; then
 	# Check if BTRFS is mounted at the specified mount point
 	if mount | grep -q "$MOUNT_POINT"; then
 		# Create needed directories if needed
-		sudo mkdir -p "$MOUNT_POINT/.snapshots/"
+		execute "sudo mkdir -p \"$MOUNT_POINT/.snapshots/\""
 		# Create the snapshot
-		sudo btrfs subvolume snapshot "$MOUNT_POINT" "$MOUNT_POINT/.snapshots/$SNAPSHOT_NAME"
-		echo -e "${GREEN}Snapshot '$SNAPSHOT_NAME' created successfully!${NC}"
+		execute "sudo btrfs subvolume snapshot \"$MOUNT_POINT\" \"$MOUNT_POINT/.snapshots/$SNAPSHOT_NAME\""
+		execute_non_verbose "echo -e \"${GREEN}Snapshot '$SNAPSHOT_NAME' created successfully!${NC}\""
 	else
 		echo -e "${RED}Error: BTRFS is not mounted at $MOUNT_POINT.${NC}"
 	fi
@@ -248,10 +300,10 @@ if [[ "$resBtrfsHome" == "y" ]]; then
 	# Check if BTRFS is mounted at the specified mount point
 	if mount | grep -q "$MOUNT_POINT"; then
 		# Create needed directories if needed
-		sudo mkdir -p "$MOUNT_POINT/.snapshots/"
+		execute "sudo mkdir -p \"$MOUNT_POINT/.snapshots/\""
 		# Create the snapshot
-		sudo btrfs subvolume snapshot "$MOUNT_POINT" "$MOUNT_POINT/.snapshots/$SNAPSHOT_NAME"
-		echo -e "${GREEN}Snapshot '$SNAPSHOT_NAME' created successfully!${NC}"
+		execute "sudo btrfs subvolume snapshot \"$MOUNT_POINT\" \"$MOUNT_POINT/.snapshots/$SNAPSHOT_NAME\""
+		execute_non_verbose "echo -e \"${GREEN}Snapshot '$SNAPSHOT_NAME' created successfully!${NC}\""
 	else
 		echo -e "${RED}Error: BTRFS is not mounted at $MOUNT_POINT.${NC}"
 	fi
@@ -264,7 +316,7 @@ fi
 if [[ "$resInitPrograms" == "y" ]]; then
 	echo
 	echo -e "${BLUE}Installing initial programs needed for system setup:${NC}"
-	sudo dnf -y install stow cargo plymouth-plugin-script
+	execute "sudo dnf -y install stow cargo plymouth-plugin-script"
 	echo
 else
 	echo -e "${GREEN}Skipped initial program installation.${NC}"
@@ -274,16 +326,16 @@ fi
 if [[ "$resLinkDotfiles" == "y" ]]; then
 	echo
 	echo -e "${BLUE}Creating folders for your dotfiles...${NC}"
-	mkdir -p $HOME/.config/nvim
-	mkdir -p $HOME/.local/share/nvim
-	mkdir -p $HOME/.config/systemd/user
+	execute "mkdir -p $HOME/.config/nvim"
+	execute "mkdir -p $HOME/.local/share/nvim"
+	execute "mkdir -p $HOME/.config/systemd/user"
 	echo
 	echo
 	echo -e "${BLUE}Linking your dotfiles via stow...${NC}"
-	cd ~/.dotfiles
-	stow --adopt .
-	git reset --hard
-	cd
+	execute "cd ~/.dotfiles"
+	execute "stow --adopt ."
+	execute "git reset --hard"
+	execute "cd"
 	echo
 else
 	echo -e "${GREEN}Skipped dotfiles linking.${NC}"
@@ -294,25 +346,25 @@ if [[ "$resRepositories" == "y" ]]; then
 	echo
 	echo -e "${BLUE}Adding needed dnf repositories, copr repositories and rpm keys:${NC}"
 	# terra
-	sudo dnf -y config-manager addrepo --from-repofile=https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
-	sudo dnf -y --refresh upgrade
-	sudo dnf -y install terra-release
+	execute "sudo dnf -y config-manager addrepo --from-repofile=https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo"
+	execute "sudo dnf -y --refresh upgrade"
+	execute "sudo dnf -y install terra-release"
 
 	# docker
-	sudo dnf -y config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
-	sudo dnf -y --refresh upgrade
+	execute "sudo dnf -y config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo"
+	execute "sudo dnf -y --refresh upgrade"
 	#sudo usermod -a -G docker krane
 
 	# lazygit
-	sudo dnf -y copr enable atim/lazygit
+	execute "sudo dnf -y copr enable atim/lazygit"
 
 	# zen-browser
-	sudo dnf -y copr enable sneexy/zen-browser
+	execute "sudo dnf -y copr enable sneexy/zen-browser"
 
 	# vs code
-	sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-	echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo >/dev/null
-	dnf -y check-update
+	execute "sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc"
+	execute "echo -e \"[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc\" | sudo tee /etc/yum.repos.d/vscode.repo >/dev/null"
+	execute "dnf -y check-update"
 	echo
 else
 	echo -e "${GREEN}Skipped repository enabling.${NC}"
@@ -322,10 +374,10 @@ fi
 if [[ "$resGrubTheme" == "y" ]]; then
 	echo
 	echo -e "${BLUE}Generating custom grub2 theme...${NC}"
-	sudo mkdir /boot/grub2/themes
-	sudo cp -r ~/.dotfiles/.grub-themes/CyberEXS/ /boot/grub2/themes/
-	sudo cp ~/.dotfiles/.grub /etc/default/grub
-	sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+	execute "sudo mkdir /boot/grub2/themes"
+	execute "sudo cp -r ~/.dotfiles/.grub-themes/CyberEXS/ /boot/grub2/themes/"
+	execute "sudo cp ~/.dotfiles/.grub /etc/default/grub"
+	execute "sudo grub2-mkconfig -o /boot/grub2/grub.cfg"
 	echo
 else
 	echo -e "${GREEN}Skipped repository enabling.${NC}"
@@ -335,8 +387,8 @@ fi
 if [[ "$resPlymouthTheme" == "y" ]]; then
 	echo
 	echo -e "${BLUE}Generating custom plymouth boot screen theme...${NC}"
-	sudo cp -r ~/.dotfiles/.plymouth-themes/lone /usr/share/plymouth/themes/
-	sudo plymouth-set-default-theme lone
+	execute "sudo cp -r ~/.dotfiles/.plymouth-themes/lone /usr/share/plymouth/themes/"
+	execute "sudo plymouth-set-default-theme lone"
 	echo
 else
 	echo -e "${GREEN}Skipped repository enabling.${NC}"
@@ -346,13 +398,13 @@ fi
 if [[ "$resRebosSetup" == "y" ]]; then
 	echo
 	echo -e "${BLUE}Installing Rebos for the remaining system packages:${NC}"
-	cargo install rebos
-	echo "export PATH='/home/$USER/.cargo/bin/:$PATH'" >.krane-rc/bash/local-paths
+	execute "cargo install rebos"
+	execute "echo \"export PATH='/home/$USER/.cargo/bin/:$PATH'\" >.krane-rc/bash/local-paths"
 	echo
 	echo -e "${BLUE}Running initial Rebos setup:${NC}"
-	rebos setup
-	rebos config init
-	rebos gen commit "[sys-init] automatic initial base system configuration"
+	execute "rebos setup"
+	execute "rebos config init"
+	execute "rebos gen commit \"[sys-init] automatic initial base system configuration\""
 	echo
 else
 	echo -e "${GREEN}Skipped Rebos setup.${NC}"
@@ -362,7 +414,7 @@ fi
 if [[ "$resRebosInstall" == "y" ]]; then
 	echo
 	echo -e "${BLUE}Installing the remaining system packages via Rebos:${NC}"
-	rebos gen current build
+	execute "rebos gen current build"
 	echo
 else
 	echo -e "${GREEN}Skipped Rebos system package install.${NC}"
@@ -371,7 +423,7 @@ fi
 if [[ "$resZshInstall" == "y" ]]; then
 	echo
 	echo -e "${BLUE}Changing default shell to zsh and installing oh-my-zsh...${NC}"
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+	execute "sh -c \"\$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\""
 	echo
 else
 	echo -e "${GREEN}Skipped ZSH install.${NC}"
@@ -380,10 +432,10 @@ fi
 if [[ "$resZshPlugins" == "y" ]]; then
 	echo
 	echo -e "${BLUE}Installing oh-my-zsh plugins...${NC}"
-	cd
-	sudo rm -rf $ZSH_CUSTOM/plugins/zsh-autosuggestions && sudo git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
-	sudo rm -rf $ZSH_CUSTOM/plugins/zsh-syntax-highlighting && sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
-	sudo rm -rf $ZSH_CUSTOM/themes/powerlevel10k && sudo git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+	execute "cd"
+	execute "sudo rm -rf $ZSH_CUSTOM/plugins/zsh-autosuggestions && sudo git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions"
+	execute "sudo rm -rf $ZSH_CUSTOM/plugins/zsh-syntax-highlighting && sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+	execute "sudo rm -rf $ZSH_CUSTOM/themes/powerlevel10k && sudo git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k"
 	echo
 else
 	echo -e "${GREEN}Skipped ZSH install.${NC}"
@@ -392,11 +444,11 @@ fi
 if [[ "$resZshInstall" == "y" ]] || [[ "$resZshPlugins" == "y" ]]; then
 	echo
 	echo -e "${BLUE}Replacing automatically overwritten .zshrc file with that from dotfiles...${NC}"
-	touch $HOME/.dotfiles/.krane-rc/bash/local-paths
-	touch $HOME/.dotfiles/.krane-rc/zsh/local-paths
-	rm $HOME/.zshrc
-	cd $HOME/.dotfiles/
-	stow .
+	execute "touch $HOME/.dotfiles/.krane-rc/bash/local-paths"
+	execute "touch $HOME/.dotfiles/.krane-rc/zsh/local-paths"
+	execute "rm $HOME/.zshrc"
+	execute "cd $HOME/.dotfiles/"
+	execute "stow ."
 	echo
 else
 	echo -e "${GREEN}Skipped .zshrc fixup.${NC}"
@@ -406,14 +458,15 @@ if [[ "$resRclone" == "y" ]]; then
 	echo
 	echo -e "${BLUE}Creating btrfs subvolume for ProtonDrive...${NC}"
 	CURRENT_USER=$(logname)
-	CURRENT_GROUP=$(id -gn "$CURRENT_USER")
-	sudo btrfs sub create /@protondrive
-	sudo chown -R "$CURRENT_USER:$CURRENT_GROUP" /@protondrive
+	CURRENT_GROUP=$(id -gn \"$CURRENT_USER\")
+	execute "sudo btrfs sub create /@protondrive"
+	execute "sudo chown -R \"$CURRENT_USER:$CURRENT_GROUP\" /@protondrive"
 
+	echo
 	echo -e "${BLUE}Enabling rclone ProtonDrive sync service...${NC}"
-	chmod +x $HOME/.dotfiles/.proton-drive-rclone-mount.sh
-	systemctl --user daemon-reload
-	systemctl --user enable proton-drive-mount.service
+	execute "chmod +x $HOME/.dotfiles/.proton-drive-rclone-mount.sh"
+	execute "systemctl --user daemon-reload"
+	execute "systemctl --user enable proton-drive-mount.service"
 	echo
 else
 	echo -e "${GREEN}Skipped rclone ProtonDrive sync enabling.${NC}"
@@ -422,13 +475,14 @@ fi
 if [[ "$resZsa" == "y" ]]; then
 	echo
 	echo -e "${BLUE}Linking ZSA keyboard udev rules...${NC}"
-	sudo ln -s $HOME/.dotfiles/.udev/50-zsa.rules /etc/udev/rules.d/
+	execute "sudo ln -s $HOME/.dotfiles/.udev/50-zsa.rules /etc/udev/rules.d/"
 
+	echo
 	echo -e "${BLUE}Syncing required group...${NC}"
 	CURRENT_USER=$(logname)
 	ZSA_GROUP=plugdev
-	sudo groupadd $ZSA_GROUP
-	sudo usermod -aG $ZSA_GROUP $CURRENT_USER
+	execute "sudo groupadd $ZSA_GROUP"
+	execute "sudo usermod -aG $ZSA_GROUP $CURRENT_USER"
 	echo
 else
 	echo -e "${GREEN}Skipped ZSA keyboard udev rules setup.${NC}"
@@ -439,6 +493,13 @@ if [[ "$resFinishOutput" == "y" ]]; then
 	echo -e "${RED}------=============================================================================------"
 	echo "------======                            FINISHED                             ======------"
 	echo "------=============================================================================------"
+	if $dry_run; then
+		echo
+		echo
+		echo -e "${RED}!!! THIS WAS JUST A DRY RUN, NOTHING ACTUALLY HAPPENED ON THE MACHINE !!!${NC}"
+		echo
+		echo
+	fi
 	echo
 	echo -e "${BLUE}System initialization is complete! Please install the following programs manually:${GREEN}"
 	echo
