@@ -27,7 +27,7 @@ choose_single_checkbox() {
 
 	while true; do
 		printf $CLEAR_LINE
-		echo -n -e "${BLUE}> [${checked}] $prompt${NC}"
+		echo -n -e "${GREEN}> [${checked}] $prompt${NC}"
 
 		# Read a single character
 		key=$(dd bs=1 count=1 2>/dev/null)
