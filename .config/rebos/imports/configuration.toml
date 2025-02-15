@@ -8,4 +8,7 @@ items = [
 	"libudev-devel",
 	"glib2-devel",
 	"libconfig-devel",
+	"gtk3",
+	"webkit2gtk4.1",
+	"libusb",
 ]
