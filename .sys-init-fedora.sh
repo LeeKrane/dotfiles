@@ -50,6 +50,7 @@ declare -A prompts=(
 	[resZshInstall]="Do you want to install ZSH?"
 	[resZshPlugins]="Do you want to install Zsh plugins?"
 	[resRclone]="Do you want to setup rclone for ProtonDrive?"
+	[resZsa]="Do you want to setup ZSA keyboard udev rules?"
 	[resFinishOutput]="Do you want the final finish message?"
 )
 
@@ -67,6 +68,7 @@ ordered_keys=(
 	resZshInstall
 	resZshPlugins
 	resRclone
+	resZsa
 	resFinishOutput
 )
 
@@ -282,6 +284,21 @@ if get_input "$resRclone"; then
 	systemctl --user enable proton-drive-mount.service
 else
 	echo -e "${GREEN}Skipped rclone ProtonDrive sync enabling.${NC}"
+fi
+echo
+echo
+
+if get_input "$resZsa"; then
+	echo -e "${BLUE}Linking ZSA keyboard udev rules...${NC}"
+	sudo ln -s $HOME/.dotfiles/.udev/50-zsa.rules /etc/udev/rules.d/
+
+	echo -e "${BLUE}Syncing required group...${NC}"
+	CURRENT_USER=$(logname)
+	ZSA_GROUP=plugdev
+	sudo groupadd $ZSA_GROUP
+	sudo usermod -aG $ZSA_GROUP $CURRENT_USER
+else
+	echo -e "${GREEN}Skipped ZSA keyboard udev rules setup.${NC}"
 fi
 echo
 echo
