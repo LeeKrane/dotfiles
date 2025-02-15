@@ -310,11 +310,11 @@ if get_input "$resFinishOutput"; then
 	echo
 	echo -e "${BLUE}System initialization is complete! Please install the following programs manually:${GREEN}"
 	echo
-	echo " - JetBrains IntelliJ					(https://www.jetbrains.com/idea/download/?section=linux)"
-	echo " - JetBrains WebStorm					(https://www.jetbrains.com/webstorm/download/#section=linux)"
-	echo " - Super Productivity					(https://github.com/johannesjo/super-productivity/releases)"
-	echo " - ProtonMail							(https://account.proton.me/u/0/mail/get-the-apps)"
-	echo " - Rclone (manual for ProtonDrive)	(https://rclone.org/downloads/)"
+	echo " - JetBrains IntelliJ                 (https://www.jetbrains.com/idea/download/?section=linux)"
+	echo " - JetBrains WebStorm                 (https://www.jetbrains.com/webstorm/download/#section=linux)"
+	echo " - Super Productivity                 (https://github.com/johannesjo/super-productivity/releases)"
+	echo " - ProtonMail                         (https://account.proton.me/u/0/mail/get-the-apps)"
+	echo " - Rclone (manual for ProtonDrive)    (https://rclone.org/downloads/)"
 	echo
 	echo -e "${BLUE}Also configure the following (or install if not using Nobara):${GREEN}"
 	echo
