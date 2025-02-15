@@ -319,7 +319,6 @@ if get_input "$resFinishOutput"; then
 	echo -e "${BLUE}Also configure the following (or install if not using Nobara):${GREEN}"
 	echo
 	echo " - Proton GE"
-	echo " - Lutris game launcher (for EA, Ubisoft, Battle.net)"
 	echo " - Heroic game launcher (for Epic Games, GOG, Prime Gaming)"
 	echo " - Rclone (rclone config) (for ProtonDrive sync)"
 	echo
