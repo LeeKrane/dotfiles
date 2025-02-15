@@ -38,20 +38,20 @@ get_input() {
 
 # Declare an associative array to map variables to prompts
 declare -A prompts=(
-	[resBtrfsRoot]="Do you want to create a BTRFS snapshot of '/' (@) before running the install script?"
-	[resBtrfsHome]="Do you want to create a BTRFS snapshot of '/home' (@home) before running the install script?"
-	[resInitPrograms]="Do you want to install the initial programs needed for the system setup?"
-	[resLinkDotfiles]="Do you want to link your dotfiles?"
-	[resRepositories]="Do you want to enable all dnf repositories?"
-	[resGrubTheme]="Do you want to enable the custom GRUB theme?"
-	[resPlymouthTheme]="Do you want to enable the custom Plymouth theme?"
-	[resRebosSetup]="Do you want to run the Rebos setup?"
-	[resRebosInstall]="Do you want to install all programs using Rebos?"
-	[resZshInstall]="Do you want to install ZSH?"
-	[resZshPlugins]="Do you want to install Zsh plugins?"
-	[resRclone]="Do you want to setup rclone for ProtonDrive?"
-	[resZsa]="Do you want to setup ZSA keyboard udev rules?"
-	[resFinishOutput]="Do you want the final finish message?"
+	[resBtrfsRoot]="Create BTRFS snap @?"
+	[resBtrfsHome]="Create BTRFS snap @home?"
+	[resInitPrograms]="Install initial programs?"
+	[resLinkDotfiles]="Link dotfiles?"
+	[resRepositories]="Enable dnf repos?"
+	[resGrubTheme]="Enable GRUB theme?"
+	[resPlymouthTheme]="Enable Plymouth theme?"
+	[resRebosSetup]="Run Rebos setup?"
+	[resRebosInstall]="Install all programs using Rebos?"
+	[resZshInstall]="Install ZSH?"
+	[resZshPlugins]="Install ZSH plugins?"
+	[resRclone]="Setup rclone for ProtonDrive?"
+	[resZsa]="Setup ZSA keyboard udev rules?"
+	[resFinishOutput]="Show final finish message?"
 )
 
 # Define an ordered list of keys
