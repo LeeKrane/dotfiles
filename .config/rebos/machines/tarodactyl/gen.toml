@@ -10,7 +10,14 @@ imports = [
 # Packages to be installed via the native package manager.
 [managers.system]
 items = [
-	"asusctl",	# asus controls
+	"clang-devel",
+	"libxkbcommon-devel",
+	"systemd-devel",
+	"expat-devel",
+	"pcre2-devel",
+	"libzstd-devel",
+	"gtk3-devel",
+	#"asusctl",	# asus controls
     # "git",
 ]
 
