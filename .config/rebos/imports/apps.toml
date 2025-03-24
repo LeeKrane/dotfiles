@@ -5,7 +5,7 @@ items = [
 	"obs-studio",			# screen recording tool
 	"flameshot",			# screenshot tool
 	"vlc",					# media player
-	"chromium",				# chromium browser for usage with VIA
+	"ungoogled-chromium",	# chromium browser (ungoogled)
 	"virt-manager",			# virtual machine manager
 	"zen-browser-avx2",		# best browser in existence
 ]
