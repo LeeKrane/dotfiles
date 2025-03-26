@@ -8,6 +8,7 @@ items = [
 	"ungoogled-chromium",	# chromium browser (ungoogled)
 	"virt-manager",			# virtual machine manager
 	"zen-browser-avx2",		# best browser in existence
+	"audacity",				# audio recording
 ]
 
 [managers.flatpak]
