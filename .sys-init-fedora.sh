@@ -546,7 +546,7 @@ if [[ "$resFinishOutput" == "y" ]]; then
 	echo " - JetBrains IntelliJ                 (https://www.jetbrains.com/idea/download/?section=linux)"
 	echo " - JetBrains WebStorm                 (https://www.jetbrains.com/webstorm/download/#section=linux)"
 	echo " - Super Productivity                 (https://github.com/johannesjo/super-productivity/releases)"
-	echo " - ProtonMail                         (https://account.proton.me/u/0/mail/get-the-apps)"
+	echo " - LT Browser                         (https://www.lambdatest.com/lt-browser)"
 	echo " - Rclone (manual for ProtonDrive)    (https://rclone.org/downloads/)"
 	echo
 	echo -e "${BLUE}Also configure the following (or install if not using Nobara):${GREEN}"
