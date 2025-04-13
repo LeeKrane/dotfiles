@@ -120,8 +120,7 @@ elif $PKG_IS_PACMAN; then
 	)
 
 	ordered_keys=(
-		resBtrfsRoot resBtrfsHome resInitPrograms resLinkDotfiles 
-		resRebosSetup resRebosInstall
+		resBtrfsRoot resBtrfsHome resInitPrograms resLinkDotfiles resAllInstall
 		resZshInstall resZshPlugins resRclone resZsa resKeymapp resFinishOutput
 	)
 fi
