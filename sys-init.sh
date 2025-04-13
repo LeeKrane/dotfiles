@@ -113,6 +113,7 @@ elif $PKG_IS_PACMAN; then
 		[resAllInstall]="Install all packages?"
 		[resZshInstall]="Install ZSH?"
 		[resZshPlugins]="Install ZSH plugins?"
+		[resKdeConnectFixups]="Open ports for KDE Connect?"
 		[resRclone]="Setup rclone for ProtonDrive?"
 		[resZsa]="Setup ZSA keyboard udev rules?"
 		[resKeymapp]="Download latest Keymapp version?"
@@ -121,7 +122,7 @@ elif $PKG_IS_PACMAN; then
 
 	ordered_keys=(
 		resBtrfsRoot resBtrfsHome resInitPrograms resLinkDotfiles resAllInstall
-		resZshInstall resZshPlugins resRclone resZsa resKeymapp resFinishOutput
+		resZshInstall resZshPlugins resKdeConnectFixups resRclone resZsa resKeymapp resFinishOutput
 	)
 fi
 
@@ -153,6 +154,7 @@ echo
 [[ "$resRebosSetup" == "y" || "$resRebosInstall" == "y" ]] && run_rebos
 [[ "$resAllInstall" == "y" ]] && install_all_packages
 [[ "$resZshInstall" == "y" || "$resZshPlugins" == "y" ]] && configure_zsh
+[[ "$resKdeConnectFixups" == "y" ]] && kde_connect_fixups
 [[ "$resRclone" == "y" ]] && configure_rclone
 [[ "$resZsa" == "y" ]] && configure_zsa
 [[ "$resKeymapp" == "y" ]] && install_keymapp
