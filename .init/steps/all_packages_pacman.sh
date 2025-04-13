@@ -51,21 +51,20 @@ install_all_packages() {
 		python-toml \
 		bunjs-bin \
 		yarn \
-		pnpm
+		pnpm \
+		spotify-launcher \
+		vesktop \
+		cartridges \
+		gpu-screen-recorder \
+		mission-center \
+		heroic-games-launcher-bin
 
 	cargo install du-dust toipe
 
 	flatpak install -y \
 		bottles \
-		com.spotify.Client \
-		dev.vencord.Vesktop \
-		page.kramo.Cartridges \
-		com.jeffser.Alpaca \
 		dev.bragefuglseth.Keypunch \
-		com.dec05eba.gpu_screen_recorder \
-		io.missioncenter.MissionCenter \
 		com.notesnook.Notesnook \
 		io.gitlab.theevilskeleton.Upscaler \
 		no.mifi.losslesscut \
-		com.heroicgameslauncher.hgl
 }
