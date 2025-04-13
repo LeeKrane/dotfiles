@@ -46,13 +46,14 @@ install_all_packages() {
 		flameshot \
 		vlc \
 		virt-manager \
-		audacity
-
-	pip install --user pre-commit toml
+		audacity \
+		pre-commit \
+		python-toml \
+		bunjs-bin \
+		yarn \
+		pnpm
 
 	cargo install du-dust toipe
-
-	npm install -g bun yarn pnpm
 
 	flatpak install -y \
 		bottles \
