@@ -19,3 +19,16 @@ alias fnv='fzfp --bind "enter:become:nvim {1}"'
 alias rf='fzf --disabled --ansi --bind "start:reload:rg --hidden --no-ignore --column --color=always --smart-case {q}" --bind "change:reload:rg --hidden --no-ignore --column --color=always --smart-case {q}" --delimiter : --preview="bat --style=full --color=always --highlight-line {2} {1}" --preview-window "~4,+{2}+4/3,<80(up)" --query "$*"'
 alias rfnv='rf --bind "enter:become:nvim {1} +{2}"'
 
+if command -v dnf &> /dev/null; then
+	source ./rebos_dnf.sh
+elif command -v pacman &> /dev/null; then
+	source ./rebos_pacman.sh
+else
+	echo "No supported package manager found!"
+	echo "Currently supporting:"
+	echo
+	echo " - dnf"
+	echo " - pacman"
+	echo
+fi
+

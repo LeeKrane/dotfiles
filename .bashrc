@@ -27,7 +27,7 @@ unset rc
 # PS1="\e[0;35m\u@\h\e[m:\e[0;35m\w\e[m\$ "
 PS1="\u@\h:\w\$ "
 
-source ~/.krane-rc/aliases
+source ~/.krane-rc/aliases/main.sh
 source ~/.krane-rc/bash/paths
 source ~/.krane-rc/bash/local-paths
 source ~/.krane-rc/bash/local-vars

@@ -81,7 +81,7 @@ POWERLEVEL9K_MODE="nerdfont-complete"
 plugins=(git  zsh-autosuggestions zsh-syntax-highlighting history)
 
 source $ZSH/oh-my-zsh.sh
-source $HOME/.krane-rc/aliases
+source $HOME/.krane-rc/aliases/main.sh
 source $HOME/.krane-rc/zsh/krane-rc
 source $HOME/.krane-rc/zsh/paths
 source $HOME/.krane-rc/zsh/local-paths
