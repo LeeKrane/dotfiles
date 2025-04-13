@@ -8,10 +8,10 @@
 
 # Example: add = "sudo apt install #:?"
 
-add = "rebosadd #:?" # Example: sudo apt install #:?
-remove = "rebosremove #:?" # Example: sudo apt remove #:?
-sync = "rebossync" # Example: sudo apt update
-upgrade = "rebosupgrade" # Example: sudo apt upgrade
+add = "sudo pacman -S --noconfirm #:?" # Example: sudo apt install #:?
+remove = "sudo pacman -R #:?" # Example: sudo apt remove #:?
+sync = "sudo pacman -Sy" # Example: sudo apt update
+upgrade = "sudo pacman -Syu" # Example: sudo apt upgrade
 
 plural_name = "system packages"
 

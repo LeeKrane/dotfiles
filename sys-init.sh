@@ -21,6 +21,7 @@ source ./.init/steps/programs.sh
 source ./.init/steps/repos.sh
 source ./.init/steps/grub.sh
 source ./.init/steps/plymouth.sh
+source ./.init/steps/all_packages_pacman.sh
 source ./.init/steps/rebos.sh
 source ./.init/steps/zsh.sh
 source ./.init/steps/rclone.sh
@@ -109,8 +110,7 @@ elif $PKG_IS_PACMAN; then
 		[resBtrfsHome]="Create BTRFS snap @home?"
 		[resInitPrograms]="Install initial programs?"
 		[resLinkDotfiles]="Link dotfiles?"
-		[resRebosSetup]="Run Rebos setup?"
-		[resRebosInstall]="Install all programs using Rebos?"
+		[resAllInstall]="Install all packages?"
 		[resZshInstall]="Install ZSH?"
 		[resZshPlugins]="Install ZSH plugins?"
 		[resRclone]="Setup rclone for ProtonDrive?"
@@ -152,6 +152,7 @@ echo
 [[ "$resGrubTheme" == "y" ]] && configure_grub
 [[ "$resPlymouthTheme" == "y" ]] && configure_plymouth
 [[ "$resRebosSetup" == "y" || "$resRebosInstall" == "y" ]] && run_rebos
+[[ "$resAllInstall" == "y" ]] && install_all_packages
 [[ "$resZshInstall" == "y" || "$resZshPlugins" == "y" ]] && configure_zsh
 [[ "$resRclone" == "y" ]] && configure_rclone
 [[ "$resZsa" == "y" ]] && configure_zsa

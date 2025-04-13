@@ -40,13 +40,3 @@ items = [
 	"jetbrains-mono-fonts",
 	"jetbrainsmono-nerd-fonts",
 ]
-
-# Packages to be installed via Flatpak.
-[managers.flatpak]
-items = [
-]
-
-# Packages to be installed via Cargo.
-[managers.cargo]
-items = [
-]

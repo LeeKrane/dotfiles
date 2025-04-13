@@ -38,8 +38,3 @@ items = [
 	# essentials
 	"bottles",
 ]
-
-# Packages to be installed via Cargo.
-[managers.cargo]
-items = [
-]
