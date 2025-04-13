@@ -152,11 +152,11 @@ echo
 [[ "$resGrubTheme" == "y" ]] && configure_grub
 [[ "$resPlymouthTheme" == "y" ]] && configure_plymouth
 [[ "$resRebosSetup" == "y" || "$resRebosInstall" == "y" ]] && run_rebos
-[[ "$resZshInstall" == "y" || "$resZshPlugins" == "y" ]] && install_zsh
-[[ "$resRclone" == "y" ]] && setup_rclone
-[[ "$resZsa" == "y" ]] && setup_zsa
-[[ "$resKeymapp" == "y" ]] && setup_keymapp
-[[ "$resFinishOutput" == "y" ]] && show_finish_message
+[[ "$resZshInstall" == "y" || "$resZshPlugins" == "y" ]] && configure_zsh
+[[ "$resRclone" == "y" ]] && configure_rclone
+[[ "$resZsa" == "y" ]] && configure_zsa
+[[ "$resKeymapp" == "y" ]] && install_keymapp
+[[ "$resFinishOutput" == "y" ]] && final_message
 
 echo -e "Exiting...${NC}"
 
