@@ -20,9 +20,9 @@ alias rf='fzf --disabled --ansi --bind "start:reload:rg --hidden --no-ignore --c
 alias rfnv='rf --bind "enter:become:nvim {1} +{2}"'
 
 if command -v dnf &> /dev/null; then
-	source ./rebos_dnf.sh
+	source ~/.dotfiles/.krane-rc/aliases/rebos_dnf.sh
 elif command -v pacman &> /dev/null; then
-	source ./rebos_pacman.sh
+	source ~/.dotfiles/.krane-rc/aliases/rebos_pacman.sh
 else
 	echo "No supported package manager found!"
 	echo "Currently supporting:"
