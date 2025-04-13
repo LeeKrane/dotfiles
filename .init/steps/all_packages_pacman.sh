@@ -58,7 +58,8 @@ install_all_packages() {
 		gpu-screen-recorder \
 		mission-center \
 		heroic-games-launcher-bin \
-		proton-ge-custom
+		proton-ge-custom \
+		rclone
 
 	cargo install du-dust toipe
 
