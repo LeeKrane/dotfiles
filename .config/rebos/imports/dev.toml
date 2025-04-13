@@ -2,9 +2,6 @@
 items = [
 	"nodejs",              # javascript runtime
 #	"texlive-scheme-full", # latex packages
-	"java-21-openjdk",     # java ;)
-	"java-21-openjdk-devel",     # java dev kit (javac)
-	"python3-pip",
 ]
 
 [managers.pip]

@@ -10,25 +10,36 @@ imports = [
 # Packages to be installed via the native package manager.
 [managers.system]
 items = [
-	"clang-devel",
-	"libxkbcommon-devel",
-	"systemd-devel",
-	"expat-devel",
-	"pcre2-devel",
-	"libzstd-devel",
-	"gtk3-devel",
-	#"asusctl",	# asus controls
-    # "git",
+	# apps
+	"ungoogled-chromium-bin",
+	"zen-browser",
+
+	# cli
+	"gvfs-onedrive",
+	
+	# dev
+	"openjdk21-src",
+	"openjdk21-doc",
+	"python-pip",
+
+	# docker
+	"docker",
+	"docker-buildx",
+	"docker-compose",
+
+	# fonts
+	"ttf-jetbrains-mono",
+	"ttf-jetbrains-mono-nerd",
 ]
 
 # Packages to be installed via Flatpak.
 [managers.flatpak]
 items = [
-    # "com.github.tchx84.Flatseal",
+	# essentials
+	"bottles",
 ]
 
 # Packages to be installed via Cargo.
 [managers.cargo]
 items = [
-    # "bacon",
 ]

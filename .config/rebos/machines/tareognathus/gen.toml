@@ -10,17 +10,43 @@ imports = [
 # Packages to be installed via the native package manager.
 [managers.system]
 items = [
-    # "git",
+	# apps
+	"kde-connect",
+	"ungoogled-chromium",
+	"zen-browser-avx2",
+
+	# cli
+	"onedrive",
+	
+	# configuration
+	"plymouth-plugin-script",
+
+	# dev
+	"java-21-openjdk",
+	"java-21-openjdk-devel",
+	"python3-pip",
+
+	# docker
+	"docker-ce",
+	"docker-ce-cli",
+	"containerd.io",
+	"docker-buildx-plugin",
+	"docker-compose-plugin",
+
+	# essentials
+	"bottles",
+
+	# fonts
+	"jetbrains-mono-fonts",
+	"jetbrainsmono-nerd-fonts",
 ]
 
 # Packages to be installed via Flatpak.
 [managers.flatpak]
 items = [
-    # "com.github.tchx84.Flatseal",
 ]
 
 # Packages to be installed via Cargo.
 [managers.cargo]
 items = [
-    # "bacon",
 ]

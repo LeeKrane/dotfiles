@@ -11,7 +11,6 @@ items = [
 	"tealdeer",  # the shorter manpage
 	"thefuck", # command autocorrector (command: 'fuck')
 	"fastfetch", # neofetch alternative
-	"onedrive",  # onedrive client
 	"jpegoptim", # jpeg img optimization tool
 	"optipng",   # png img optimization tool
 	"wireguard-tools",	# wireguard duh
