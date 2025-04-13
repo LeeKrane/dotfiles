@@ -24,6 +24,7 @@ source ./.init/steps/plymouth.sh
 source ./.init/steps/all_packages_pacman.sh
 source ./.init/steps/rebos.sh
 source ./.init/steps/zsh.sh
+source ./.init/steps/kde_connect_fixups.sh
 source ./.init/steps/rclone.sh
 source ./.init/steps/zsa.sh
 source ./.init/steps/keymapp.sh
