@@ -66,5 +66,5 @@ install_all_packages() {
 		dev.bragefuglseth.Keypunch \
 		com.notesnook.Notesnook \
 		io.gitlab.theevilskeleton.Upscaler \
-		no.mifi.losslesscut \
+		no.mifi.losslesscut
 }
