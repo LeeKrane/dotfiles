@@ -52,7 +52,6 @@ install_all_packages() {
 		bunjs-bin \
 		yarn \
 		pnpm \
-		spotify-launcher \
 		vesktop \
 		cartridges \
 		gpu-screen-recorder \
@@ -64,6 +63,7 @@ install_all_packages() {
 	cargo install du-dust toipe
 
 	flatpak install -y \
+		com.spotify.Client \
 		bottles \
 		dev.bragefuglseth.Keypunch \
 		com.notesnook.Notesnook \
