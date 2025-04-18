@@ -111,6 +111,7 @@ elif $PKG_IS_PACMAN; then
 		[resBtrfsHome]="Create BTRFS snap @home?"
 		[resInitPrograms]="Install initial programs?"
 		[resLinkDotfiles]="Link dotfiles?"
+		[resPlymouthTheme]="Enable Plymouth theme?"
 		[resAllInstall]="Install all packages?"
 		[resZshInstall]="Install ZSH?"
 		[resZshPlugins]="Install ZSH plugins?"
@@ -122,7 +123,7 @@ elif $PKG_IS_PACMAN; then
 	)
 
 	ordered_keys=(
-		resBtrfsRoot resBtrfsHome resInitPrograms resLinkDotfiles resAllInstall
+		resBtrfsRoot resBtrfsHome resInitPrograms resLinkDotfiles resPlymouthTheme resAllInstall
 		resZshInstall resZshPlugins resKdeConnectFixups resRclone resZsa resKeymapp resFinishOutput
 	)
 fi
