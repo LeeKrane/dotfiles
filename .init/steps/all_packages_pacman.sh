@@ -58,7 +58,8 @@ install_all_packages() {
 		mission-center \
 		heroic-games-launcher-bin \
 		proton-ge-custom \
-		rclone
+		rclone \
+		fuse2
 
 	cargo install du-dust toipe
 
