@@ -30,16 +30,13 @@ for arg in "$@"; do
             ;;
         -d|--dry-run)
             DRY_RUN=true
-            echo "DRY RUN MODE: Commands will be shown but not executed"
             ;;
         -vv|--extra-verbose)
             VERBOSE=true
             EXTRA_VERBOSE=true
-            echo "EXTRA VERBOSE MODE: Detailed logging and command tracing enabled"
             ;;
         -v|--verbose)
             VERBOSE=true
-            echo "VERBOSE MODE: Detailed logging enabled"
             ;;
         *)
             echo "Unknown option: $arg"
@@ -52,17 +49,41 @@ done
 RCLONE_REMOTE="ProtonDrive"
 MOUNT_PATH="/@protondrive/"
 
+# Color definitions
+if [ -t 1 ]; then  # Only use colors if output is to a terminal
+    COLOR_RESET='\033[0m'
+    COLOR_VERBOSE='\033[0;36m'    # Cyan
+    COLOR_COMMAND='\033[0;33m'    # Yellow
+    COLOR_DRY_RUN='\033[0;35m'    # Magenta
+else
+    COLOR_RESET=''
+    COLOR_VERBOSE=''
+    COLOR_COMMAND=''
+    COLOR_DRY_RUN=''
+fi
+
+# Show mode announcements with colors
+if [ "$DRY_RUN" = true ]; then
+    echo -e "${COLOR_DRY_RUN}DRY RUN MODE:${COLOR_RESET} Commands will be shown but not executed"
+fi
+
+if [ "$EXTRA_VERBOSE" = true ]; then
+    echo -e "${COLOR_VERBOSE}EXTRA VERBOSE MODE:${COLOR_RESET} Detailed logging and command tracing enabled"
+elif [ "$VERBOSE" = true ]; then
+    echo -e "${COLOR_VERBOSE}VERBOSE MODE:${COLOR_RESET} Detailed logging enabled"
+fi
+
 # Verbose logging function
 log_verbose() {
     if [ "$VERBOSE" = true ]; then
-        echo "[VERBOSE] $1"
+        echo -e "${COLOR_VERBOSE}[VERBOSE]${COLOR_RESET} $1"
     fi
 }
 
 # Extra verbose logging function for commands
 log_command() {
     if [ "$EXTRA_VERBOSE" = true ]; then
-        echo "[COMMAND] $1"
+        echo -e "${COLOR_COMMAND}[COMMAND]${COLOR_RESET} $1"
     fi
 }
 
@@ -71,7 +92,7 @@ get_2fa_code() {
 	log_verbose "Prompting user for 2FA code"
 	
 	if [ "$DRY_RUN" = true ]; then
-		echo "[DRY RUN] Would show 2FA input dialog"
+		echo -e "${COLOR_DRY_RUN}[DRY RUN]${COLOR_RESET} Would show 2FA input dialog"
 		echo "123456" # Mock 2FA code for dry run
 		echo "0" # Mock successful exit code
 		return
@@ -93,9 +114,9 @@ update_rclone_config() {
 	log_verbose "Starting 2FA configuration update with code: ${new_2fa_code:0:3}***"
 
 	if [ "$DRY_RUN" = true ]; then
-		echo "[DRY RUN] Would get rclone config file path"
-		echo "[DRY RUN] Would update 2FA code to: $new_2fa_code"
-		echo "[DRY RUN] Would run: sed -i \"/^\[${RCLONE_REMOTE}\]/,/^\[.*\]/{s/^[[:space:]]*2fa[[:space:]]*=[[:space:]]*.*/2fa = ${new_2fa_code}/}\" <config_file>"
+		echo -e "${COLOR_DRY_RUN}[DRY RUN]${COLOR_RESET} Would get rclone config file path"
+		echo -e "${COLOR_DRY_RUN}[DRY RUN]${COLOR_RESET} Would update 2FA code to: $new_2fa_code"
+		echo -e "${COLOR_DRY_RUN}[DRY RUN]${COLOR_RESET} Would run: sed -i \"/^\[${RCLONE_REMOTE}\]/,/^\[.*\]/{s/^[[:space:]]*2fa[[:space:]]*=[[:space:]]*.*/2fa = ${new_2fa_code}/}\" <config_file>"
 		return 0 # Mock success
 	fi
 
@@ -152,8 +173,8 @@ while true; do
 	log_verbose "Mount attempt started"
 	
 	if [ "$DRY_RUN" = true ]; then
-		echo "[DRY RUN] Would execute: rclone mount \"$RCLONE_REMOTE\":/ \"$MOUNT_PATH\" --daemon --vfs-cache-mode full --poll-interval 10m"
-		echo "[DRY RUN] Would send notification: Mounting was successful!"
+		echo -e "${COLOR_DRY_RUN}[DRY RUN]${COLOR_RESET} Would execute: rclone mount \"$RCLONE_REMOTE\":/ \"$MOUNT_PATH\" --daemon --vfs-cache-mode full --poll-interval 10m"
+		echo -e "${COLOR_DRY_RUN}[DRY RUN]${COLOR_RESET} Would send notification: Mounting was successful!"
 		break # Exit loop in dry run mode
 	fi
 	
@@ -191,8 +212,8 @@ while true; do
 			local_detail="2FA expired or incorrect."
 			
 			if [ "$DRY_RUN" = true ]; then
-				echo "[DRY RUN] Would send notification: $local_message $local_detail -- Prompting for new 2FA."
-				echo "[DRY RUN] Would prompt for 2FA code and update configuration"
+				echo -e "${COLOR_DRY_RUN}[DRY RUN]${COLOR_RESET} Would send notification: $local_message $local_detail -- Prompting for new 2FA."
+				echo -e "${COLOR_DRY_RUN}[DRY RUN]${COLOR_RESET} Would prompt for 2FA code and update configuration"
 				local_action_taken=true
 			else
 				log_verbose "Sending 2FA error notification"
@@ -244,8 +265,8 @@ while true; do
 			log_verbose "No automatic action taken, prompting user for next step"
 			
 			if [ "$DRY_RUN" = true ]; then
-				echo "[DRY RUN] Would show retry/cancel dialog for mount failure"
-				echo "[DRY RUN] Would assume user selects 'Cancel' and exit"
+				echo -e "${COLOR_DRY_RUN}[DRY RUN]${COLOR_RESET} Would show retry/cancel dialog for mount failure"
+				echo -e "${COLOR_DRY_RUN}[DRY RUN]${COLOR_RESET} Would assume user selects 'Cancel' and exit"
 				exit 1
 			else
 				log_verbose "Showing retry/cancel dialog to user"
