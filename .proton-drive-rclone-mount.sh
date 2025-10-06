@@ -2,6 +2,21 @@
 # Disable job control
 set +m
 
+# Check for help parameter
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    echo "Proton Drive Rclone Mount Script"
+    echo "Automatically mounts Proton Drive using rclone with 2FA handling"
+    echo ""
+    echo "Usage: $0 [-h|--help]"
+    echo ""
+    echo "Features:"
+    echo "  - Mounts Proton Drive to /@protondrive/"
+    echo "  - Handles 2FA authentication with GUI prompts"
+    echo "  - Automatic retry on mount failures"
+    echo "  - Desktop notifications for status updates"
+    exit 0
+fi
+
 RCLONE_REMOTE="ProtonDrive"
 MOUNT_PATH="/@protondrive/"
 
