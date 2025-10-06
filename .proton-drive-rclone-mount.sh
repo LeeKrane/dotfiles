@@ -5,6 +5,7 @@ set +m
 # Parse command line arguments
 DRY_RUN=false
 VERBOSE=false
+EXTRA_VERBOSE=false
 
 for arg in "$@"; do
     case $arg in
@@ -12,12 +13,13 @@ for arg in "$@"; do
             echo "Proton Drive Rclone Mount Script"
             echo "Automatically mounts Proton Drive using rclone with 2FA handling"
             echo ""
-            echo "Usage: $0 [-h|--help] [-d|--dry-run] [-v|--verbose]"
+            echo "Usage: $0 [-h|--help] [-d|--dry-run] [-v|--verbose] [-vv|--extra-verbose]"
             echo ""
             echo "Options:"
-            echo "  -h, --help     Show this help message"
-            echo "  -d, --dry-run  Show what would be executed without actually running commands"
-            echo "  -v, --verbose  Enable detailed logging and output"
+            echo "  -h, --help           Show this help message"
+            echo "  -d, --dry-run        Show what would be executed without actually running commands"
+            echo "  -v, --verbose        Enable detailed logging and output"
+            echo "  -vv, --extra-verbose Enable extra verbose mode with all executed commands"
             echo ""
             echo "Features:"
             echo "  - Mounts Proton Drive to /@protondrive/"
@@ -29,6 +31,11 @@ for arg in "$@"; do
         -d|--dry-run)
             DRY_RUN=true
             echo "DRY RUN MODE: Commands will be shown but not executed"
+            ;;
+        -vv|--extra-verbose)
+            VERBOSE=true
+            EXTRA_VERBOSE=true
+            echo "EXTRA VERBOSE MODE: Detailed logging and command tracing enabled"
             ;;
         -v|--verbose)
             VERBOSE=true
@@ -52,6 +59,13 @@ log_verbose() {
     fi
 }
 
+# Extra verbose logging function for commands
+log_command() {
+    if [ "$EXTRA_VERBOSE" = true ]; then
+        echo "[COMMAND] $1"
+    fi
+}
+
 # Function to get 2FA code via GUI
 get_2fa_code() {
 	log_verbose "Prompting user for 2FA code"
@@ -64,6 +78,7 @@ get_2fa_code() {
 	fi
 	
 	log_verbose "Launching YAD dialog for 2FA input"
+	log_command "yad --center --title=\"2FA Required\" --text=\"Please enter your new 2FA code for Proton Drive:\" --entry --hide-text --undecorated --width=400 --height=100"
 	yad --center --title="2FA Required" --text="Please enter your new 2FA code for Proton Drive:" --entry --hide-text --undecorated --width=400 --height=100
 	local yad_exit=$?
 	log_verbose "YAD dialog closed with exit code: $yad_exit"
@@ -85,11 +100,13 @@ update_rclone_config() {
 	fi
 
 	log_verbose "Getting rclone config file path"
+	log_command "rclone config file | grep \"rclone.conf\" | awk '{print \$NF}'"
 	# Get the path to the rclone config file
 	config_file=$(rclone config file | grep "rclone.conf" | awk '{print $NF}')
 
 	if [ -z "$config_file" ]; then
 		log_verbose "ERROR: Could not find rclone config file"
+		log_command "notify-send \"Rclone Error\" \"Could not find Rclone configuration file.\" -a \"Proton Drive\" -i \"/home/krane/.dotfiles/proton-drive-logo.png\" --urgency=critical"
 		notify-send "Rclone Error" "Could not find Rclone configuration file." -a "Proton Drive" -i "/home/krane/.dotfiles/proton-drive-logo.png" --urgency=critical
 		return 1 # Indicate failure
 	fi
@@ -99,17 +116,20 @@ update_rclone_config() {
 	echo "Searching for '2fa = ' below section '[${RCLONE_REMOTE}]' to update."
 
 	log_verbose "Executing sed command to update 2FA line"
+	log_command "sed -i \"/^\\[${RCLONE_REMOTE}\\]/,/^\\[.*\\]/{s/^[[:space:]]*2fa[[:space:]]*=[[:space:]]*.*/2fa = ${new_2fa_code}/}\" \"$config_file\""
 	# Use sed to update the '2fa' line within the specified remote's section
 	sed -i "/^\[${RCLONE_REMOTE}\]/,/^\[.*\]/{s/^[[:space:]]*2fa[[:space:]]*=[[:space:]]*.*/2fa = ${new_2fa_code}/}" "$config_file"
 	local sed_exit=$?
 
 	if [ $sed_exit -ne 0 ]; then
 		log_verbose "ERROR: sed command failed with exit code: $sed_exit"
+		log_command "notify-send \"Rclone Error\" \"Failed to update Rclone configuration file. Check permissions or file format.\" -a \"Proton Drive\" -i \"/home/krane/.dotfiles/proton-drive-logo.png\" --urgency=critical"
 		notify-send "Rclone Error" "Failed to update Rclone configuration file. Check permissions or file format." -a "Proton Drive" -i "/home/krane/.dotfiles/proton-drive-logo.png" --urgency=critical
 		return 1 # Indicate failure
 	fi
 
 	log_verbose "Verifying 2FA update in config file"
+	log_command "grep -q -E \"^[[:space:]]*2fa[[:space:]]*=[[:space:]]*${new_2fa_code}\" \"$config_file\""
 	# Verify the change
 	if grep -q -E "^[[:space:]]*2fa[[:space:]]*=[[:space:]]*${new_2fa_code}" "$config_file"; then
 		log_verbose "2FA update verification successful"
@@ -117,6 +137,7 @@ update_rclone_config() {
 		return 0 # Indicate success
 	else
 		log_verbose "WARNING: 2FA update verification failed"
+		log_command "notify-send \"Rclone Warning\" \"2FA line might not have been updated correctly in config file.\" -a \"Proton Drive\" -i \"/home/krane/.dotfiles/proton-drive-logo.png\" --urgency=normal"
 		notify-send "Rclone Warning" "2FA line might not have been updated correctly in config file." -a "Proton Drive" -i "/home/krane/.dotfiles/proton-drive-logo.png" --urgency=normal
 		return 1 # Indicate failure (even if sed returned 0, verify the change)
 	fi
@@ -137,6 +158,7 @@ while true; do
 	fi
 	
 	log_verbose "Executing rclone mount command"
+	log_command "rclone mount \"$RCLONE_REMOTE\":/ \"$MOUNT_PATH\" --daemon --vfs-cache-mode full --poll-interval 10m"
 	output=$(rclone mount \
 		"$RCLONE_REMOTE":/ \
 		"$MOUNT_PATH" \
@@ -150,6 +172,7 @@ while true; do
 	# Check exit status and send notification
 	if [ $exit_status -eq 0 ]; then
 		log_verbose "Mount successful, sending success notification"
+		log_command "notify-send \"$RCLONE_REMOTE Mount\" \"Mounting was successful!\" -a \"Proton Drive\" -i \"/home/krane/.dotfiles/proton-drive-logo.png\""
 		notify-send "$RCLONE_REMOTE Mount" "Mounting was successful!" -a "Proton Drive" -i "/home/krane/.dotfiles/proton-drive-logo.png"
 		break # Exit loop on success
 	else
@@ -173,6 +196,7 @@ while true; do
 				local_action_taken=true
 			else
 				log_verbose "Sending 2FA error notification"
+				log_command "notify-send \"$RCLONE_REMOTE Mount\" \"$local_message $local_detail -- Prompting for new 2FA.\" -a \"Proton Drive\" -i \"/home/krane/.dotfiles/proton-drive-logo.png\" --urgency=critical"
 				notify-send "$RCLONE_REMOTE Mount" "$local_message $local_detail -- Prompting for new 2FA." -a "Proton Drive" -i "/home/krane/.dotfiles/proton-drive-logo.png" --urgency=critical
 
 				# Get 2FA code via GUI
@@ -180,12 +204,14 @@ while true; do
 
 				if [ "$yad_exit_code" -ne 0 ]; then # YAD's exit code 1 is typically Cancel/No
 					log_verbose "User cancelled 2FA input"
+					log_command "notify-send \"$RCLONE_REMOTE Mount\" \"2FA code input cancelled. Aborting.\" -a \"Proton Drive\" -i \"/home/krane/.dotfiles/proton-drive-logo.png\" --urgency=critical"
 					notify-send "$RCLONE_REMOTE Mount" "2FA code input cancelled. Aborting." -a "Proton Drive" -i "/home/krane/.dotfiles/proton-drive-logo.png" --urgency=critical
 					exit 1
 				fi
 
 				if [ -z "$new_2fa_code_entered" ]; then
 					log_verbose "No 2FA code provided by user"
+					log_command "notify-send \"$RCLONE_REMOTE Mount\" \"2FA code not provided. Aborting.\" -a \"Proton Drive\" -i \"/home/krane/.dotfiles/proton-drive-logo.png\" --urgency=critical"
 					notify-send "$RCLONE_REMOTE Mount" "2FA code not provided. Aborting." -a "Proton Drive" -i "/home/krane/.dotfiles/proton-drive-logo.png" --urgency=critical
 					exit 1
 				fi
@@ -195,10 +221,12 @@ while true; do
 				if update_rclone_config "$new_2fa_code_entered"; then
 					local_action_taken=true
 					log_verbose "2FA configuration updated successfully"
+					log_command "notify-send \"$RCLONE_REMOTE Mount\" \"2FA updated. Retrying mount.\" -a \"Proton Drive\" -i \"/home/krane/.dotfiles/proton-drive-logo.png\""
 					notify-send "$RCLONE_REMOTE Mount" "2FA updated. Retrying mount." -a "Proton Drive" -i "/home/krane/.dotfiles/proton-drive-logo.png"
 					# Loop will naturally re-attempt
 				else
 					log_verbose "Failed to update 2FA configuration"
+					log_command "notify-send \"$RCLONE_REMOTE Mount\" \"Failed to update 2FA configuration. Please check manually.\" -a \"Proton Drive\" -i \"/home/krane/.dotfiles/proton-drive-logo.png\" --urgency=critical"
 					notify-send "$RCLONE_REMOTE Mount" "Failed to update 2FA configuration. Please check manually." -a "Proton Drive" -i "/home/krane/.dotfiles/proton-drive-logo.png" --urgency=critical
 					# Fall through to the retry/cancel dialog for manual intervention
 				fi
@@ -221,6 +249,7 @@ while true; do
 				exit 1
 			else
 				log_verbose "Showing retry/cancel dialog to user"
+				log_command "yad --center --title=\"$RCLONE_REMOTE Mount Failed\" --text=\"<b>$local_message</b>\\n\\n$local_detail\\n\\nWould you like to retry the mount?\" --button=\"Retry!gtk-refresh:0\" --button=\"Cancel!gtk-cancel:1\" --undecorated --width=450 --height=150"
 				# Use yad for a notification with Retry/Cancel buttons
 				yad_response=$(yad --center --title="$RCLONE_REMOTE Mount Failed" \
 					--text="<b>$local_message</b>\n\n$local_detail\n\nWould you like to retry the mount?" \
@@ -233,6 +262,7 @@ while true; do
 
 				if [ "$yad_exit_code" -eq 1 ]; then # YAD's exit code for the second button (Cancel)
 					log_verbose "User selected Cancel, exiting script"
+					log_command "notify-send \"$RCLONE_REMOTE Mount\" \"Mount attempt cancelled by user.\" -a \"Proton Drive\" -i \"/home/krane/.dotfiles/proton-drive-logo.png\""
 					notify-send "$RCLONE_REMOTE Mount" "Mount attempt cancelled by user." -a "Proton Drive" -i "/home/krane/.dotfiles/proton-drive-logo.png"
 					exit 1 # Exit the script
 				fi
